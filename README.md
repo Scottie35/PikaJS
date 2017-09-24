@@ -1,8 +1,8 @@
-##**What is PikaJS?**
+## What is PikaJS?
 
 PikaJS is like jQuery or PrototypeJS, only smaller, lighter, and more efficient.
 
-##**How do you say "Pika"?**
+## How do you say "Pika"?
 
 However you want.
 
@@ -14,7 +14,7 @@ Therefore, you can say it either way - or make up your own pronunciation.
 
 PHEW! Now that that's out of the way...
 
-##**Why PikaJS?**
+## Why PikaJS?
 
 I had been using jQuery and PrototypeJS, and I needed to ditch PrototypeJS at long last. My colleague [Michael Franzl](https://github.com/michaelfranzl) said, "Hey! Check out this [Balalaika](https://github.com/finom/balalaika) thing!" So I did.
 
@@ -40,13 +40,15 @@ For example, AJAX requests of all kinds should be easy to do without digging int
 
 Anyhoo, the idea was to include the best of jQuery and the best of PrototypeJS (yes, it exists) - but in a much smaller package.
 
-**PrototypeJS 1.7.3 + Script.aculo.us** 	= 120 kB minified
-**jQuery 3.2.1**					= 84.6 kB
-**PikaJS**						= **10.5** kB
+**PrototypeJS 1.7.3 + Script.aculo.us**  =  120 kB minified
+
+**jQuery 3.2.1**  =  84.6 kB
+
+**PikaJS**  =  **10.5** kB
 
 That's just minified, not gzipped.
 
-##**Okay, but how compatible is PikaJS?**
+## Okay, but how compatible is PikaJS?
 
 Pika will work with all modern browsers, including IE10+, and the majority of mobile browsers. It is being used on [Sott.net](https://www.sott.net) - which gets millions of pageviews a month - with no complaints. So, I guess that means it works!
 
@@ -58,7 +60,7 @@ End users who have IE8 or IE9 and cannot upgrade to an actual, real web browser 
 
 Or, you can include a shim, shiv, polyfill, shimmy, shaky, or chimichanga - whichever you prefer.
 
-##**Okay, but how did you make it so small?**
+## Okay, but how did you make it so small?
 
 It's quite simple, actually.
 
@@ -80,7 +82,7 @@ In recent years, there is an air of, "I want it to just work". That's nice and a
 
 PikaJS is small, furry, and fast, but it's not very smart - much like a lagomorph. So, you have to be the smart one when you use it. And don't forget to feed it. 
 
-##**Wow, that sounds awful!**
+## Wow, that sounds awful!
 
 It's just a "new" way of working. Most of the functionality you've come to expect from jQuery exists already in PikaJS, and it works. There is also a TON of functionality in other libraries that either you don't use, or you don't need!
 
@@ -92,7 +94,7 @@ Historically, programmers tend to use some framework that is, "the latest thing"
 
 I don't use any code without knowing exactly what it's doing. This is unusual, I admit, but PikaJS is the result.
 
-##**Well, but, but... Okay, so what does PikaJS give me?**
+## Well, but, but... Okay, so what does PikaJS give me?
 
 First of all, note carefully which methods are chainable, and which aren't. The most normally-chained methods ARE chainable.
 
@@ -102,7 +104,7 @@ This was a simple question of minimizing code and complexity. Also, methods invo
 
 In those cases where you do have to use .each, you will find it isn't really that inconvenient!
 
-##**So how do I use it?**
+## So how do I use it?
 
 First, include the minifed **pika-min.js** in the head of your page.
 
@@ -110,13 +112,13 @@ First, include the minifed **pika-min.js** in the head of your page.
 
 And then, get crackin':
 
-###**DOM Ready**
+### DOM Ready
 
     $(function() {
     	// Do stuff here
     });
 
-###**Selectors**
+### Selectors
 
 	
 
@@ -150,7 +152,7 @@ Note that you can also do pure JS stuff very easily like this:
 
 	$('#search-form')[0].submit()  ->  Submit the form
 	
-###**Advanced selectors**
+### Advanced selectors
 
     $('#container div.thisclass').select('span')  ->  Object [ <span1>, <span2>, <span3> ]
 
@@ -166,9 +168,9 @@ To make any DOM element chainable, just pass it in to $():
     var el = $('#container div.thisclass')[1];	// el = <span2>
     $(el)  ->  Object [ <span2> ]
 
-###**All the goodies**
+### All the goodies
 
-####**$.extend**
+#### $.extend
 
 	var myObject = {a:1};
 	$.extend(myObject,{
@@ -177,11 +179,11 @@ To make any DOM element chainable, just pass it in to $():
 
 	This is not magic. It's a simple loop that adds the passed-in object parameters to myObject.
 	
-####**.is**
+#### .is
 
 	$('#container div').is('.thisclass')	->	Returns true if DIV has class "thisclass", false otherwise
 
-####**.on**
+#### .on
 
 	// Simple event listener
 
@@ -198,7 +200,7 @@ To make any DOM element chainable, just pass it in to $():
 		this[0].submit();
 	});
 	
-####**._on**
+#### ._on
 	
 	// Delegated event listener
 	// You can pass event in to your function() if you want to do stuff with it, but it's not required
@@ -235,18 +237,18 @@ Two other important notes:
 
 	2. `._on()` checks to make sure that $('ul.mylist') exists first. If it doesn't, it does NOT attach a listener. This means you can use `._on()` to create a whole bunch of listeners in 1 JS file, and if that element doesn't exist on the page, nothing will break because nothing will happen.
 	
-####**.off**
+#### .off
 
 	$('.my-selector').off('click.namespace');
 
-####**.onChange**
+#### .onChange
 
 	$('input#search').onChange(700, function() {
 		// Check every 700ms to see if the value of the input element has changed
 		// If it has changed, do something here, like AJAX call to search form
 	});
 
-####**.ajax**
+#### .ajax
 
 	// Do an AJAX request (with all options below set to default - can omit most of them)
 	// This simply leverages XMLHttpRequest
@@ -322,7 +324,7 @@ fail: function to execute on FAIL or ABORT/timeout if set
 
 - function arguments you can add to your callback if you need them: **response, responseType, status, statusText**
 
-####**What about a jQuery-like dataFilter option?**
+#### What about a jQuery-like dataFilter option?
 	
 Don't need one. dataFilter in jQuery is simply called on the returned data before it is passed to done, so you can just implement/call it yourself in:
 
@@ -331,7 +333,7 @@ Don't need one. dataFilter in jQuery is simply called on the returned data befor
     	// Carry on
     }
 
-####**.formData**
+#### .formData
 
 	$('#myForm').formData()
 	
@@ -342,23 +344,23 @@ Don't need one. dataFilter in jQuery is simply called on the returned data befor
 	
 	Returns string that is the serialized values of all fields in FORM with id #myForm
 	
-####**.select**
+#### .select
 
 	See above in Selectors section
 	
-####**.parent**
+#### .parent
 
 	$('#mydiv').parent();
 	
 	Returns parent of #mydiv as: Object [ <BLAH> ], and is thus chainable
 
-####**.remove**
+#### .remove
 
 	$('#mydiv').remove();
 	
 	Removes element from DOM and returns element's HTML as string; For multiple elements, use .each
 
-####**.html**
+#### .html
 
 	$('#mydiv').html()
 	
@@ -368,43 +370,43 @@ Don't need one. dataFilter in jQuery is simply called on the returned data befor
 	
 	Sets element's contents to passed-in HTML; Any JS is executed; Chainable; For updating multiple elements, use .each
 
-####**.update**
+#### .update
 
 	$('#mydiv').update('<em>Some text!</em>');
 	
 	See second .html usage example above
 
-####**.replace**
+#### .replace
 
 	$('#mydiv').replace('html');
 	
 	Replaces element's contents and returns that element; Chainable; JS executed; For replacing multiple elements, use .each
 
-####**.append**
+#### .append
 
 	$('#mydiv').append('html');
 	
 	Insert 'html' as last child element inside #mydiv; Chainable; JS executed
 
-####**.prepend**
+####.prepend
 
 	$('#mydiv').prepend('html');
 	
 	Insert 'html' as first child element inside #mydiv; Chainable; JS executed
 
-####**.before**
+#### .before
 
 	$('#mydiv').before('html');
 	
 	Insert 'html' as new sibling element before #mydiv; Chainable; JS executed
 
-####**.after**
+#### .after
 
 	$('#mydiv').after('html');
 	
 	Insert 'html' as new sibling element after #mydiv; Chainable; JS executed
 
-####**.up**
+#### .up
 
 	$('#mydiv').up();
 	
@@ -414,7 +416,7 @@ Don't need one. dataFilter in jQuery is simply called on the returned data befor
 	
 	Get the 3rd node up the DOM tree that matches 'div.thingy'; Indexing starts at 0; Chainable
 
-####**.down**
+#### .down
 
 	$('#mydiv').down();
 	
@@ -424,7 +426,7 @@ Don't need one. dataFilter in jQuery is simply called on the returned data befor
 	
 	Get the 3rd node down the DOM tree that matches 'div.thingy'; Indexing starts at 0; Chainable
 
-####**.previous**
+#### .previous
 
 	$('#mydiv').previous();
 	
@@ -434,7 +436,7 @@ Don't need one. dataFilter in jQuery is simply called on the returned data befor
 
 	Get the 2nd previous sibling in the DOM tree matching 'div.stuff'; Indexing starts at 0; Chainable
 
-####**.next**
+#### .next
 
 	$('#mydiv').next();
 	
@@ -444,20 +446,20 @@ Don't need one. dataFilter in jQuery is simply called on the returned data befor
 
 	Get the 2nd next sibling in the DOM tree matching 'div.stuff'; Indexing starts at 0; Chainable
 
-####**.first**
+#### .first
 
 	$('div.some_class').first();	->	Object [ <div> ]
 	
 	Get the first element from the selected elements; Chainable
 	If you don't need the result to be chainable, you can simply do: $('div.some_class')[0]  ->  <div>
 
-####**.last**
+#### .last
 
 	$('div.some_class').last();
 	
 	Get the last element from the selected elements; Chainable
 	
-####**.attr**
+#### .attr
 
 	$('div.crazy').attr('id');
 	
@@ -467,7 +469,7 @@ Don't need one. dataFilter in jQuery is simply called on the returned data befor
 	
 	Set the id attribute of div.crazy to 'my-super-id'; Chainable
 
-####**.val**
+#### .val
 
 	$('input#cheese').val();
 	
@@ -477,37 +479,37 @@ Don't need one. dataFilter in jQuery is simply called on the returned data befor
 	
 	Set the value of input#cheese; Chainable
 
-####**.addClass**
+#### .addClass
 
 	$('div.crazy').addClass('red');
 	
 	Adds class 'red' to ALL divs that have class 'crazy'; Chainable; No .each required!
 
-####**.removeClass**
+#### .removeClass
 
 	$('div.crazy').removeClass('red');
 	
 	Removes class 'red' from ALL divs that have class 'crazy'; Chainable; No .each required!
 
-####**.show**
+#### .show
 
 	$('div.red').show();
 	
 	Sets ALL divs with class 'red' to visible; Chainable
 
-####**.hide**
+#### .hide
 
 	$('div.red').hide();
 	
 	Sets ALL divs with class 'red' to hidden; Chainable
 
-####**.visible**
+#### .visible
 
 	$('div.red').visible()
 	
 	Returns true or false depending on if div.red is visible or hidden
 
-####**.css**
+#### .css
 
 	$('div.red').css('opacity')
 	
@@ -520,26 +522,26 @@ Don't need one. dataFilter in jQuery is simply called on the returned data befor
 	
 	Sets CSS for ALL div.red as specified; Chainable; Note that values like 'background-color' need to be passed as a string due to the hyphen. Note also that rgb values and short hex color values like #fff will be automagically converted into #aabbcc hex format for both getting and setting. Finally, it's up to you to compensate for any 'background-color' vs 'backgroundColor' problems.
 
-####**.getDimensions**
+#### .getDimensions
 
 	$('div.red').getDimensions()
 	
 	Returns object with dimensions of div.red like so:
 		Object { width: 340, height: 367 }
 
-####**.getHeight**
+#### .getHeight
 
 	$('div.red').getHeight()
 	
 	Returns number equal to height of div.red; Convenience wrapper for .getDimensions
 
-####**.getWidth**
+#### .getWidth
 
 	$('div.red').getWidth()
 	
 	Returns number equal to width of div.red; Convenience wrapper for .getDimensions
 
-####**.each**
+#### .each
 
 	$('div.red').each(function() {
 		this.html('Uh-oh!');
@@ -547,19 +549,19 @@ Don't need one. dataFilter in jQuery is simply called on the returned data befor
 	
 	Iterates over each instance of div.red and sets the innerHTML of each to 'Uh-oh!'; JS executed
 
-####**.blank**
+#### .blank
 
 	$('div.red').blank()
 	
 	Returns true if value (for form elements) or innerHTML of selected element is empty, false otherwise
 	
-####**.focus**
+#### .focus
 
 	$('input#firstName').focus();
 	
 	Focus browser on input#firstName
 
-####**.data**
+#### .data
 
 	$('div.blue').eq(1).data('snausage');
 	
@@ -569,25 +571,25 @@ Don't need one. dataFilter in jQuery is simply called on the returned data befor
 	
 	Sets data attribute data-snausafe on ALL divs with class='blue'; Chainable
 	
-###**Animations and fun effects:**
+### Animations and fun effects:
 
 Note that Element.animate is great, but not yet widely supported - and still "experimental".
 
 These effects are NOT chainable. Normally you'd just add them as the last link in the chain anyway, like: `$('#blah').html('ERROR: You suck!').show().fade(7);`
 
-####**.fade**
+#### .fade
 
 	$('div.blue').fade(7);
 	
 	Fades out div.blue after 7 seconds; Uses requestAnimationFrame if possible, or setTimeout otherwise
 	
-####**.slideUp**
+#### .slideUp
 
 	$('div.blue').slideUp(5);
 	
 	Slides up div.blue after 5 seconds; Uses requestAnimationFrame if possible, or setTimeout otherwise
 	
-####**.scrollTo**
+#### .scrollTo
 
 	$('div.blue').scrollTo();
 	
@@ -600,23 +602,23 @@ These effects are NOT chainable. Normally you'd just add them as the last link i
 	
 	Smooth scrolls up or down to the location of div.blue, -200 pixels, in the document. Since default duration is 0.5 (about 0.5s), the given duration of 0.3 will scroll faster. Uses requestAnimationFrame if possible, or setTimeout otherwise
 
-###**Special internal methods you can use if you want:**
+### Special internal methods you can use if you want:
 		
-####**$.H**
+#### $.H
 
 	Used internally to improve on Balalaika's conversion from text -> HTML. Uses document.createRange().createContextualFragment('some HTML') to convert from a string of HTML into actual DOM nodes to be inserted.
 	
 	This also extracts any and all SCRIPT tags, attaches a unique ID, and the extracted JS is then executed at the appropriate time when the HTML nodes are inserted into the page via .html(), .update(), etc.
 
-####**$.R**
+#### $.R
 
 	Used internally by $.H to create a 7-char unique ID string for extracted JS execution at the appropriate time
 
-####**$.S**
+#### $.S
 
 	$.S(event)  ->  Calls event.prevenDefault() and event.stopPropagation(); Uses window.event if event is undefined
 
-####**$.t**
+#### $.t
 
 	$.t(obj)	->  return typeof obj === 'undefined';
 	!$.t(obj)	->  return typeof obj !== 'undefined';
@@ -630,13 +632,13 @@ These effects are NOT chainable. Normally you'd just add them as the last link i
 		'o' = object
 		's' = string
 	
-####**$.T**
+#### $.T
 
 	$.T('div#my_div')  ->  Like Toggle.display(el) in PrototypeJS (VERY handy!)
 
-###**More goodies**
+### More goodies
 
-####**$.JS**
+#### $.JS
 
 	This is used internally to attach JS code to the document <HEAD> for execution. If for some odd reason you want to use it, you can like so:
 	
@@ -644,7 +646,7 @@ These effects are NOT chainable. Normally you'd just add them as the last link i
 	
 	The second param document can be omitted, or it can be included if you want to use a different context. The JS is executed immediately.
 	
-###**Finally, miscellaneous variables and methods**
+### Finally, miscellaneous variables and methods
 
 $ includes the following default values for PikaJS:
 
@@ -671,48 +673,48 @@ You can override these if you want for AJAX calls, or just for fun because you'r
 
 Also included are several internal methods, which you can check out and use if you want. I'll just summarize them below.
 
-####**$.merge(first, second)**
+#### $.merge(first, second)
 
 	Like Array.concat, but also modifies the first array to be the result of the merge.
 	
-####**$.getTags(context, tag)**
+#### $.getTags(context, tag)
 
 	Extracts content <tag> from context; Used for extracting JS from AJAX-returned HTML
 	
-####**$.execJS(id)**
+#### $.execJS(id)
 
 	Executes the JS returned from an AJAX call that matches the proper ID
 	
-####**$.first(el)**
+#### $.first(el)
 
 	Returns first descendant node of el.
 	Note this is different from $(...).first(), which is technically $.fn.first()!!
 	
-####**$.findR(el, prop, expr, index)**
+#### $.findR(el, prop, expr, index)
 
 	Recursive find Used for .up, .previous, and .next
 
-####**$.cOff(el)**
+#### $.cOff(el)
 
 	Returns cumulative offset of el in the document; Returns {left: x, top: y}
 
-####**$.rgb2Hex(rgb)**
+#### $.rgb2Hex(rgb)
 
 	For CSS. Does what it sounds like!
 	
-####**$.longHex(hex)**
+#### $.longHex(hex)
 
 	Converts short 3-digit hex color codes into full 6-digit color codes
 
-####**$.doToS(prefix, obj, add)**
+#### $.doToS(prefix, obj, add)
 
 	Builder for $.toS
 
-####**$.toS(a)**
+#### $.toS(a)
 
 	Object -> to query string
 
-##**Can you make it so that...**
+## Can you make it so that...
 
 Maybe, but don't hold your breath.
 
@@ -742,7 +744,7 @@ If you want to add multiple functions, you can also do this:
 		}
 	});
 
-##**Can you make it even smaller?**
+## Can you make it even smaller?
 
 Sure! The version **pika-pure-min.js** is just pika-min.js but without the animation/effects stuff.
 
@@ -752,4 +754,4 @@ It's only **9.21kB** minified instead of 10.5kB.
 
 That's all, folks!
 
-~ THE END ~
+**~ THE END ~**
