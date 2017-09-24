@@ -388,7 +388,7 @@ Don't need one. dataFilter in jQuery is simply called on the returned data befor
 	
 	Insert 'html' as last child element inside #mydiv; Chainable; JS executed
 
-####.prepend
+#### .prepend
 
 	$('#mydiv').prepend('html');
 	
@@ -754,4 +754,4 @@ It's only **9.21kB** minified instead of 10.5kB.
 
 That's all, folks!
 
-**~ THE END ~**
+~ THE END ~
