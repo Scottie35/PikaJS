@@ -615,7 +615,8 @@ These effects are NOT chainable. Normally you'd just add them as the last link i
 		
 #### $.H
 
-	Used internally to improve on Balalaika's conversion from text -> HTML. Uses document.createRange().createContextualFragment('some HTML') to convert from a string of HTML
+	Used internally to improve on Balalaika's conversion from text -> HTML. Uses
+	document.createRange().createContextualFragment('some HTML') to convert from a string of HTML
 	into actual DOM nodes to be inserted.
 	
 	This also extracts any and all SCRIPT tags, attaches a unique ID, and the extracted JS is then 
