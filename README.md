@@ -46,7 +46,7 @@ Anyhoo, the idea was to include the best of jQuery and the best of PrototypeJS (
 
 **PikaJS**  =  **10.5** kB
 
-That's just minified, not gzipped.
+That's just minified, not gzipped. PikaJS is only **4.4kB** gzipped.
 
 ## Okay, but how compatible is PikaJS?
 
