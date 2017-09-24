@@ -321,7 +321,9 @@ Two other important notes:
 - Note that these arguments are XMLHttpRequest standard return variables
 - If all you want is response, define your done function like this: `function(res) { // res = response }`
 - If you want response and status, define your done function like so: `function(res, resType, status) { // etc }`
-fail: function to execute on FAIL or ABORT/timeout if set
+
+**fail:** function to execute on FAIL or ABORT/timeout if set
+
 - function arguments you can add to your callback if you need them: **response, responseType, status, statusText**
 
 **always:** function to execute always on SUCCESS or FAIL
