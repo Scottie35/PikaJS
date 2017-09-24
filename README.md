@@ -293,7 +293,9 @@ Two other important notes:
 
 - default is for serialized data
 - automatically ignored if data is FormData(), which allows for multipart uploads and the like
-headers:
+
+**headers:**
+
 - Defaults are often needed, so if you add your own custom headers, you may need to also specify the defaults:
 
 ```javascript
