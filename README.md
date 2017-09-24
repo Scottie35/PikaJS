@@ -643,7 +643,7 @@ These effects are NOT chainable. Normally you'd just add them as the last link i
 
 	$.t(obj)	->  return typeof obj === 'undefined';
 	!$.t(obj)	->  return typeof obj !== 'undefined';
-	$.t(obj, 'f')	->	return typeof obj === 'function';
+	$.t(obj, 'f')	->  return typeof obj === 'function';
 	!$.t(obj, 's')	->  return typeof obj !== 'string';
 	
 	Second argument can be:
@@ -715,7 +715,7 @@ Also included are several internal methods, which you can check out and use if y
 	
 #### $.findR(el, prop, expr, index)
 
-	Recursive find Used for .up, .previous, and .next
+	Recursive find used for .up, .previous, and .next
 
 #### $.cOff(el)
 
