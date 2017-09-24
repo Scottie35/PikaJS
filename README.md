@@ -368,7 +368,8 @@ Don't need one. dataFilter in jQuery is simply called on the returned data befor
 	
 	$('#mydiv').html('<em>Some text!</em>');
 	
-	Sets element's contents to passed-in HTML; Any JS is executed; Chainable; For updating multiple elements, use .each
+	Sets element's contents to passed-in HTML; Any JS is executed; Chainable;
+	For updating multiple elements, use .each
 
 #### .update
 
@@ -380,7 +381,8 @@ Don't need one. dataFilter in jQuery is simply called on the returned data befor
 
 	$('#mydiv').replace('html');
 	
-	Replaces element's contents and returns that element; Chainable; JS executed; For replacing multiple elements, use .each
+	Replaces element's contents and returns that element; Chainable; JS executed;
+	For replacing multiple elements, use .each
 
 #### .append
 
@@ -451,7 +453,8 @@ Don't need one. dataFilter in jQuery is simply called on the returned data befor
 	$('div.some_class').first();	->	Object [ <div> ]
 	
 	Get the first element from the selected elements; Chainable
-	If you don't need the result to be chainable, you can simply do: $('div.some_class')[0]  ->  <div>
+	If you don't need the result to be chainable, you can simply do:
+	  $('div.some_class')[0]  ->  <div>
 
 #### .last
 
@@ -520,7 +523,10 @@ Don't need one. dataFilter in jQuery is simply called on the returned data befor
 		'background-color': '#fff'
 	});
 	
-	Sets CSS for ALL div.red as specified; Chainable; Note that values like 'background-color' need to be passed as a string due to the hyphen. Note also that rgb values and short hex color values like #fff will be automagically converted into #aabbcc hex format for both getting and setting. Finally, it's up to you to compensate for any 'background-color' vs 'backgroundColor' problems.
+	Sets CSS for ALL div.red as specified; Chainable; Note that values like 'background-color' need 
+	to be passed as a string due to the hyphen. Note also that rgb values and short hex color values 
+	like #fff will be automagically converted into #aabbcc hex format for both getting and setting. 
+	Finally, it's up to you to compensate for any 'background-color' vs 'backgroundColor' problems.
 
 #### .getDimensions
 
@@ -593,22 +599,28 @@ These effects are NOT chainable. Normally you'd just add them as the last link i
 
 	$('div.blue').scrollTo();
 	
-	Smooth scrolls up or down to the location of div.blue in the document. Uses requestAnimationFrame if possible, or setTimeout otherwise
+	Smooth scrolls up or down to the location of div.blue in the document.
+	Uses requestAnimationFrame if possible, or setTimeout otherwise.
 	
 	$('div.blue').scrollTo({
 		duration: 0.3,
 		offset: -200
 	});
 	
-	Smooth scrolls up or down to the location of div.blue, -200 pixels, in the document. Since default duration is 0.5 (about 0.5s), the given duration of 0.3 will scroll faster. Uses requestAnimationFrame if possible, or setTimeout otherwise
+	Smooth scrolls up or down to the location of div.blue, -200 pixels, in the document. 
+	Since default duration is 0.5 (about 0.5s), the given duration of 0.3 will scroll faster. 
+	Uses requestAnimationFrame if possible, or setTimeout otherwise
 
 ### Special internal methods you can use if you want:
 		
 #### $.H
 
-	Used internally to improve on Balalaika's conversion from text -> HTML. Uses document.createRange().createContextualFragment('some HTML') to convert from a string of HTML into actual DOM nodes to be inserted.
+	Used internally to improve on Balalaika's conversion from text -> HTML. Uses document.createRange().createContextualFragment('some HTML') to convert from a string of HTML
+	into actual DOM nodes to be inserted.
 	
-	This also extracts any and all SCRIPT tags, attaches a unique ID, and the extracted JS is then executed at the appropriate time when the HTML nodes are inserted into the page via .html(), .update(), etc.
+	This also extracts any and all SCRIPT tags, attaches a unique ID, and the extracted JS is then 
+	executed at the appropriate time when the HTML nodes are inserted into the page via .html(), 
+	.update(), etc.
 
 #### $.R
 
@@ -616,7 +628,9 @@ These effects are NOT chainable. Normally you'd just add them as the last link i
 
 #### $.S
 
-	$.S(event)  ->  Calls event.prevenDefault() and event.stopPropagation(); Uses window.event if event is undefined
+	$.S(event)  ->  
+	Calls event.prevenDefault() and event.stopPropagation(); 
+	Uses window.event if event is undefined
 
 #### $.t
 
@@ -640,11 +654,13 @@ These effects are NOT chainable. Normally you'd just add them as the last link i
 
 #### $.JS
 
-	This is used internally to attach JS code to the document <HEAD> for execution. If for some odd reason you want to use it, you can like so:
+	This is used internally to attach JS code to the document <HEAD> for execution. If for some 
+	odd reason you want to use it, you can like so:
 	
 	$.JS('some javascript code here', document);
 	
-	The second param document can be omitted, or it can be included if you want to use a different context. The JS is executed immediately.
+	The second param document can be omitted, or it can be included if you want to use a different 
+	context. The JS is executed immediately.
 	
 ### Finally, miscellaneous variables and methods
 
