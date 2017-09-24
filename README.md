@@ -233,9 +233,9 @@ So you can add/remove `<LI>` like crazy, and it will "just work". One listener i
 
 Two other important notes:
 
-	1. The event bubble/propagation is stopped by `._on()` by default
+1. The event bubble/propagation is stopped by `._on()` by default
 
-	2. `._on()` checks to make sure that $('ul.mylist') exists first. If it doesn't, it does NOT attach a listener. This means you can use `._on()` to create a whole bunch of listeners in 1 JS file, and if that element doesn't exist on the page, nothing will break because nothing will happen.
+2. `._on()` checks to make sure that $('ul.mylist') exists first. If it doesn't, it does NOT attach a listener. This means you can use `._on()` to create a whole bunch of listeners in 1 JS file, and if that element doesn't exist on the page, nothing will break because nothing will happen.
 	
 #### .off
 
