@@ -296,13 +296,15 @@ Two other important notes:
 headers:
 - Defaults are often needed, so if you add your own custom headers, you may need to also specify the defaults:
 
-`{
-	'X-Your-Header': 'Stuff',
-	'X-Your-Other-Header': 'More Stuff',
-	// Don't forget to add the defaults!
-	'X-Requested-With': 'XMLHttpRequest',
-	'Accept': 'text/javascript, text/html, application/xml, text/xml, */*'
-}`
+```javascript
+{
+    'X-Your-Header': 'Stuff',
+    'X-Your-Other-Header': 'More Stuff',
+    // Don't forget to add the defaults!
+    'X-Requested-With': 'XMLHttpRequest',
+    'Accept': 'text/javascript, text/html, application/xml, text/xml, */*'
+}
+```
 
 **timeout:** 
 
