@@ -352,7 +352,7 @@ Don't need one. dataFilter in jQuery is simply called on the returned data befor
 	
 #### .select
 
-	See above in Selectors section
+See above in [Selectors](#selectors) section
 	
 #### .parent
 
