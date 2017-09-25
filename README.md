@@ -587,7 +587,8 @@ Don't need one. dataFilter in jQuery is simply called on the returned data befor
 	
 	$('div.blue').data('snausage', 'this is some stuff');
 	
-	Sets data attribute data-snausafe on ALL divs with class='blue'; Chainable
+	Sets data attribute data-snausafe on ALL divs with class='blue'; Chainable;
+	For multiple elements, use .each
 	
 ### Animations and fun effects:
 
