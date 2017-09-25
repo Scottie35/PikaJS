@@ -36,7 +36,7 @@ BUT, the only functions included in Balalaika are:
 
 PikaJS therefore starts with Balalaika and builds all kinds of stuff on top of it. 
 
-For example, AJAX requests of all kinds should be easy to do without digging into XMLHttpRequest. Now, I realize that we're in a brave new world where everything is "Web 4.0 Push Notification Mobile Cloud Blockchain Fabulous(tm)", but back here in the real world, we still need to send and receive data from a server with JavaScript from a simple web page. Yeah, THAT real world.
+For example, AJAX requests of all kinds should be easy to do without digging into XMLHttpRequest. Now, I realize that we're in a brave new world where everything is "Web 4.0 Push Notification Mobile Cloud Blockchain Fabulous™", but back here in the real world, we still need to send and receive data from a server with JavaScript from a simple web page. Yeah, THAT real world.
 
 Anyhoo, the idea was to include the best of jQuery and the best of PrototypeJS (yes, it exists) - but in a much smaller package.
 
