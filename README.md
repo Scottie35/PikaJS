@@ -664,8 +664,6 @@ These effects are NOT chainable. Normally you'd just add them as the last link i
 
 	$.T('div#my_div')  ->  Like Toggle.display(el) in PrototypeJS (VERY handy!)
 
-### More goodies
-
 #### $.JS
 
 	This is used internally to attach JS code to the document <HEAD> for execution. If for some 
