@@ -394,25 +394,29 @@ Don't need one. dataFilter in jQuery is simply called on the returned data befor
 
 	$('#mydiv').append('html');
 	
-	Insert 'html' as last child element inside #mydiv; Chainable; JS executed
+	Insert 'html' as last child element inside #mydiv; Chainable; JS executed;
+	For multiple elements, use .each
 
 #### .prepend
 
 	$('#mydiv').prepend('html');
 	
-	Insert 'html' as first child element inside #mydiv; Chainable; JS executed
+	Insert 'html' as first child element inside #mydiv; Chainable; JS executed;
+	For multiple elements, use .each
 
 #### .before
 
 	$('#mydiv').before('html');
 	
-	Insert 'html' as new sibling element before #mydiv; Chainable; JS executed
+	Insert 'html' as new sibling element before #mydiv; Chainable; JS executed;
+	For multiple elements, use .each
 
 #### .after
 
 	$('#mydiv').after('html');
 	
-	Insert 'html' as new sibling element after #mydiv; Chainable; JS executed
+	Insert 'html' as new sibling element after #mydiv; Chainable; JS executed;
+	For multiple elements, use .each
 
 #### .up
 
@@ -422,7 +426,7 @@ Don't need one. dataFilter in jQuery is simply called on the returned data befor
 
 	$('#mydiv').up('div.thingy', 2);
 	
-	Get the 3rd node up the DOM tree that matches 'div.thingy'; Indexing starts at 0; Chainable
+	Get the 3rd node up the DOM tree that matches 'div.thingy'; Indexing starts at 0; Chainable;
 
 #### .down
 
@@ -476,7 +480,8 @@ Don't need one. dataFilter in jQuery is simply called on the returned data befor
 
 	$('div.crazy').attr('id', 'my-super-id');
 	
-	Set the id attribute of div.crazy to 'my-super-id'; Chainable
+	Set the id attribute of div.crazy to 'my-super-id'; Chainable;
+	For multiple elements, use .each
 
 #### .val
 
@@ -486,7 +491,8 @@ Don't need one. dataFilter in jQuery is simply called on the returned data befor
 
 	$('input#cheese').val('Whiz!');
 	
-	Set the value of input#cheese; Chainable
+	Set the value of input#cheese; Chainable;
+	For multiple elements, use .each
 
 #### .addClass
 
