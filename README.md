@@ -636,7 +636,7 @@ These effects are NOT chainable. Normally you'd just add them as the last link i
 #### $.S
 
 	$.S(event)  ->  
-	Calls event.prevenDefault() and event.stopPropagation(); 
+	Calls event.preventDefault() and event.stopPropagation(); 
 	Uses window.event if event is undefined
 
 #### $.t
@@ -694,7 +694,7 @@ $ includes the following default values for PikaJS:
 
 You can override these if you want for AJAX calls, or just for fun because you're nuts.
 
-Also included are several internal methods, which you can check out and use if you want. I'll just summarize them below.
+Also included are several other internal methods, which you can check out and use if you want. I'll just summarize them below.
 
 #### $.merge(first, second)
 
