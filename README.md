@@ -52,7 +52,7 @@ That's just minified, not gzipped. PikaJS is only **4.4kB** gzipped.
 
 Pika will work with all modern browsers, including IE10+, and the majority of mobile browsers. It is being used on [Sott.net](https://www.sott.net) - which gets millions of pageviews a month - with no complaints. So, I guess that means it works!
 
-PikaJS also includes a few things to improve compatability with various browsers, but not TOO much. For the most part, I just made sure that what I used wasn't cutting edge, but instead widely supported and generally fast and small.
+PikaJS also includes a few things to improve compatibility with various browsers, but not TOO much. For the most part, I just made sure that what I used wasn't cutting edge, but instead widely supported and generally fast and small.
 
 IE < 10 is not supported, but this shouldn't be a big deal. IE 8 and IE 9 account for about 2.3% of global browser market share as of July 2017. Not also that jQuery 3 no longer supports ancient versions of IE out of the box, either.
 
