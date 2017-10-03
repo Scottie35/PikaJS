@@ -499,7 +499,7 @@ $.extend($.fn, {
 		}
 	},
 
-	attr: function(key, val=null) {
+	attr: function(key, val) {
 	  if (val || val == '') {
 	    this[0].setAttribute(key, val);
 	    return this;
