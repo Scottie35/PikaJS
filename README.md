@@ -587,7 +587,7 @@ See above in [Selectors](#selectors) section
 	
 	$('div.blue').data('snausage', 'this is some stuff');
 	
-	Sets data attribute data-snausafe on ALL divs with class='blue'; Chainable;
+	Sets data attribute data-snausage on ALL divs with class='blue'; Chainable;
 	For multiple elements, use .each
 	
 ### Animations and fun effects:
