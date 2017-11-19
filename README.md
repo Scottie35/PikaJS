@@ -44,7 +44,7 @@ Anyhoo, the idea was to include the best of jQuery and the best of PrototypeJS (
 
 **jQuery 3.2.1**  =  84.6 kB
 
-**PikaJS**  =  **10.5** kB
+**PikaJS**  =  **10.6** kB
 
 That's just minified, not gzipped. PikaJS is only **4.4kB** gzipped.
 
@@ -778,7 +778,7 @@ Sure! The version **pika-pure-min.js** is just pika-min.js but without the anima
 
 IOW, it's PikaJS without `.fade`, `.slideUp`, or `.scrollTo` - each of which are relatively large.
 
-It's only **9.21kB** minified instead of 10.5kB.
+It's only **9.24kB** minified instead of 10.6kB.
 
 That's all, folks!
 
