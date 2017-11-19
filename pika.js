@@ -1,5 +1,5 @@
 /**
- * @license PikaJS v1.0
+ * @license PikaJS v1.1
  * © Scott Ogrin & Quantum Future Group, Inc. - MIT License
  * Balalaika v1.0.1 - MIT License
  */
@@ -790,7 +790,12 @@ $.extend($.fn, {
 	// -- Miscellaneous --------------------------------------
 
 	blank: function() {
-		var t = this[0].value || this[0].innerHTML;
+		var t, x = this[0];
+		if (x.tagName == 'SELECT') {
+			t = x.value;
+		} else {
+			t = x.value || x.innerHTML;
+		}
 		return /^\s*$/.test(t);
 	},
 
