@@ -1,5 +1,5 @@
 /**
- * @license PikaJS Pure v1.1 - without Animation/Effects
+ * @license PikaJS Pure v1.11 - without Animation/Effects
  * © Scott Ogrin & Quantum Future Group, Inc. - MIT License
  * Balalaika v1.0.1 - MIT License
  */
@@ -21,10 +21,10 @@ window.$=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new h.i
 //	Pika does NOT track and remove eventListeners like jQuery. Do it yourself!
 //  Better yet, use ._on() so you don't have to
 
-(function($,Win,Doc,PNode,Pos,ProcData,RetType,ContType,Hdrs,TimeOut,Style,Length){
+(function($,Win,Doc,PNode,Pos,ProcData,RetType,ContType,Hdrs,TimeOut,Style,Len){
 $.extend($, {
 
-	Version: '1.0',
+	Version: '1.11',
 
 	Ajax: {
 		url: null,
@@ -187,7 +187,7 @@ $.extend($, {
 	doToS: function(prefix, obj, add) {
 		var name;
 		if ($.t(obj, 'a')) {
-			for (var i=0, l=obj[Length]; i<l; i++) {
+			for (var i=0, l=obj[Len]; i<l; i++) {
 				if (/\[\]$/.test(prefix)) {
 					add(prefix, obj[i]);
 				} else {
@@ -206,7 +206,7 @@ $.extend($, {
 	execJS: function(id) {
 		// Only execute JS for a specific event based on id
 		if (!$.t($.Js[id])) {
-			for (var i=0, l=$.Js[id].txt[Length]; i<l; i++) {
+			for (var i=0, l=$.Js[id].txt[Len]; i<l; i++) {
 				if (!$.t($.Js[id].txt[i])) {
 					$.JS($.Js[id].txt[i], $.Js[id].doc[i]);					
 				}
@@ -263,9 +263,9 @@ $.extend($, {
 		}
 		// At this point, content is some DOM nodes, so save any JS for execution, and remove the SCRIPT nodes
 		js = $.getTags(content, 'script');
-		if (js[Length] > 0) {
+		if (js[Len] > 0) {
 			$.Js[id] = {txt: [], doc: []};
-			for (var i=0, l=js[Length]; i < l; i++) {
+			for (var i=0, l=js[Len]; i < l; i++) {
 				if (js[i].textContent) {
 					$.Js[id].txt.push(js[i].textContent);
 					$.Js[id].doc.push(js[i].ownerDocument);
@@ -297,11 +297,11 @@ $.extend($, {
   },
 
 	merge: function(first, second) {
-		var len = +second[Length], j = 0, i = first[Length];
+		var len = +second[Len], j = 0, i = first[Len];
 		for (; j < len; j++) {
 			first[i++] = second[j];
 		}
-		first[Length] = i;
+		first[Len] = i;
 		return first;
 	},
 
@@ -344,11 +344,11 @@ $.extend($, {
 			eu = encodeURIComponent,
 			add = function(key, valOrFunc) {
 				var val = $.t(valOrFunc, 'f') ? valOrFunc() : valOrFunc;
-				k[k[Length]] = eu(key) + "=" + eu(val == null ? "" : val);
+				k[k[Len]] = eu(key) + "=" + eu(val == null ? "" : val);
 			};
 		// Assume array of form elements as [{name: "a", value: "1"}, {...}, ...]
 		if (Array.isArray(a)) {
-			for (var i=0, l=a[Length]; i<l; i++) {
+			for (var i=0, l=a[Len]; i<l; i++) {
 				add(a[i].name, a[i].value);
 			}
 		} else {
@@ -448,7 +448,7 @@ $.extend($.fn, {
 
 	up: function(expr, index) {
 	  var node;
-	  if (arguments[Length] === 0) { 
+	  if (arguments[Len] === 0) { 
 	  	node = this[0][PNode];
 	  } else {
 	  	node = $.findR(this[0], 'parentNode', expr, index);
@@ -458,7 +458,7 @@ $.extend($.fn, {
 
 	down: function(expr, index) {
 	  var node;
-	  if (arguments[Length] === 0) {
+	  if (arguments[Len] === 0) {
 			node = $.first(this[0]);  	
 	  	return $(node);
 	  }
@@ -492,7 +492,7 @@ $.extend($.fn, {
 	// 		$$(...)[0] => $(...).eq(0)  	=>		$(...).eq(0).hide()		<-- is "Balalaika object"
 	//		$$(...)[0]										=> 		$(...)[0].innerHTML		<-- is DOM node only
 	eq: function(index) {
-		if ($.t(index, 'n') && this[Length] > index) {
+		if ($.t(index, 'n') && this[Len] > index) {
 			if (index in this) {
 				return $(this[index]);
 			}
@@ -711,7 +711,7 @@ $.extend($.fn, {
 
 	// This allows passing in a function(){...}, which will be called on each elem
 	each: function(iterator, context) {
-	  for (var i=0, l=this[Length]; i<l; i++) {
+	  for (var i=0, l=this[Len]; i<l; i++) {
 	    if (i in this) {
 	    	iterator.call($(this[i]));
 	    }
