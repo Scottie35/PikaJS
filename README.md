@@ -152,6 +152,8 @@ Note that you can also do pure JS stuff very easily like this:
 
 	$('#search-form')[0].submit()  ->  Submit the form
 	
+	$('#some-div')[0].childNodes  ->  Child nodes of DIV#some-div; pass each back in to $( ) to Pikafy it
+	
 ### Advanced selectors
 
     $('#container div.thisclass').select('span')  ->  Object [ <span1>, <span2>, <span3> ]
