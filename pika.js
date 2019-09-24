@@ -286,7 +286,7 @@ $.extend($, {
 	},
 
 	JS: function(code, doc) {
-		doc = doc || D;
+		doc = doc || Doc;
 		var js = doc.createElement("script");
 		js.text = code;
 		doc.head.appendChild(js)[PNode].removeChild(js);
