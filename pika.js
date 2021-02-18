@@ -1,11 +1,11 @@
 /**
- * @license PikaJS v1.11
+ * @license PikaJS v1.2
  * © Scott Ogrin & Quantum Future Group, Inc. - MIT License
  * Balalaika v1.0.1 - MIT License
  */
 
 // NOTE: We only support IE >= 10.
-// IE 8+9 only have a ~2% desktop browser market share as of July 2017.
+// IE 8-11 have less than 1% desktop browser market share as of Feb 2021.
 
 // Balalaika v1.0.1
 // https://github.com/finom/balalaika
@@ -24,7 +24,7 @@ window.$=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new h.i
 (function($,Win,Doc,PNode,Pos,ProcData,RetType,ContType,Hdrs,TimeOut,Style,Len,ReqAF){
 $.extend($, {
 
-	Version: '1.11',
+	Version: '1.2',
 
 	Ajax: {
 		url: null,
@@ -45,6 +45,12 @@ $.extend($, {
 	},
 
 	Js: {}, // JS: { ij3sdfs: {txt: ['js', 'js'], doc: [document, document]}, b8e64hr: {...} }
+
+// Why not fetch()?
+// fetch uses promises, which is nice. 
+// BUT: fetch is experimental, cookieless by default, promise doesn't reject on error, 
+// timeouts are not supported, aborting is complicated, and there is no progress tracking...
+// In short, it ain't there yet.
 
 // AJAX function
 	ajax: function(opts) {
@@ -286,7 +292,7 @@ $.extend($, {
 	},
 
 	JS: function(code, doc) {
-		doc = doc || Doc;
+		doc = doc || D;
 		var js = doc.createElement("script");
 		js.text = code;
 		doc.head.appendChild(js)[PNode].removeChild(js);
@@ -628,14 +634,15 @@ $.extend($.fn, {
 	// -- Event Observers ------------------------------------
 
 	// jQuery-like delegated event handler (this = parent where listener is attached)
-	// Note this cancels event bubble/default for you!
-	_on: function(event, expr, fn) {
+	// Note this cancels event bubble/default for you - unless last param === false
+	_on: function(event, expr, fn, bubble) {
 		// Prevent attaching if parent doesn't exist (so we can load all handlers on all pages if we want)
 		if ($.t(this[0])) { return; }
+		bubble = (bubble == null ? true : bubble);
 		// Attach to PARENT, filter for child
 		this.on(event, function(evt) {
 			if (evt.target && $(evt.target).is(expr)) {
-				$.S(evt);
+				if (bubble) { $.S(evt); }
 				fn.call($(evt.target), evt); // func will have evt, this = $()
 			}
 		});
@@ -688,17 +695,19 @@ $.extend($.fn, {
 
 	// -- Animations and Effects -----------------------------
 
-	fade: function(delay) {
+	fade: function(delay, remove) {
 	  var el = $(this)[0], st = setTimeout;
 	  delay = (delay || 0) * 1000;
+	  remove = (remove == null ? false : remove);
 	  el[Style].opacity = 1;
 	  var go = function() {
-	    el[Style].opacity = +el[Style].opacity - 0.0333; // Faster fade; 0.01667 is too slow
+	    el[Style].opacity = +el[Style].opacity - 0.0777; // Faster fade
 	    if (+el[Style].opacity > 0) {
 	      (Win[ReqAF] && Win[ReqAF](go)) || st(go, 16); // Fallback is 1000ms/60fps = 16ms
 	    } else {
 	    	el[Style].display = 'none';
 	    	el[Style].opacity = '';
+	    	if (remove) { $(el).remove(); }
 	    }
 	  };
 	  (delay > 0) ? st(go, delay) : go();
