@@ -271,7 +271,7 @@ Two other important notes:
 		fail: null,
 		always: null		
 	});
-	
+
 **url:** a string (REQUIRED)
 
 **type:** 'GET' or 'POST' usually, defaults to 'GET'
@@ -340,6 +340,12 @@ Don't need one. dataFilter in jQuery is simply called on the returned data befor
     	// Do your data filter stuff here somehow
     	// Carry on
     }
+
+#### Why not use fetch()?
+
+fetch() uses promises, which is nice. BUT... It's experimental, cookieless by default, the promise doesn't reject on an HTTP error, timeouts are not supported, aborting is complicated, and there is no progress tracking...
+
+In short, it's not quite 'there' yet, so you can just use it yourself if you want/need.
 
 #### .formData
 
