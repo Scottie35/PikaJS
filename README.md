@@ -42,7 +42,7 @@ Anyhoo, the idea was to include the best of jQuery and the best of PrototypeJS (
 
 **PrototypeJS 1.7.3 + Script.aculo.us**  =  120 kB minified
 
-**jQuery 3.2.1**  =  84.6 kB
+**jQuery 3.5.1**  =  87.3 kB
 
 **PikaJS**  =  **10.6** kB
 
@@ -50,7 +50,7 @@ That's just minified, not gzipped. PikaJS is only **4.4kB** gzipped.
 
 ## Okay, but how compatible is PikaJS?
 
-Pika will work with all modern browsers, including IE10+, and the majority of mobile browsers. It is being used on [Sott.net](https://www.sott.net) - which gets millions of pageviews a month - with no complaints. So, I guess that means it works!
+Pika will work with all modern browsers, including IE10+, Edge, and the majority of mobile browsers. It is being used on [Sott.net](https://www.sott.net) - which gets millions of pageviews a month - with no complaints. So, I guess that means it works!
 
 PikaJS also includes a few things to improve compatibility with various browsers, but not TOO much. For the most part, I just made sure that what I used wasn't cutting edge, but instead widely supported and generally fast and small.
 
