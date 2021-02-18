@@ -1,11 +1,11 @@
 /**
- * @license PikaJS Pure v1.11 - without Animation/Effects
+ * @license PikaJS Pure v1.2 - without Animation/Effects
  * © Scott Ogrin & Quantum Future Group, Inc. - MIT License
  * Balalaika v1.0.1 - MIT License
  */
 
 // NOTE: We only support IE >= 10.
-// IE 8+9 only have a ~2% desktop browser market share as of July 2017.
+// IE 8-11 have less than 1% desktop browser market share as of Feb 2021.
 
 // Balalaika v1.0.1
 // https://github.com/finom/balalaika
@@ -18,13 +18,13 @@ window.$=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new h.i
 //	$('#list li') = [li, li, li]
 //
 // IMPORTANT:
-//	Pika does NOT track and remove eventListeners like jQuery. Do it yourself!
+//	Pika does NOT track and remove EventListeners like jQuery. Do it yourself!
 //  Better yet, use ._on() so you don't have to
 
-(function($,Win,Doc,PNode,Pos,ProcData,RetType,ContType,Hdrs,TimeOut,Style,Len){
+(function($,Win,Doc,PNode,Pos,ProcData,RetType,ContType,Hdrs,TimeOut,Style,Len,ReqAF){
 $.extend($, {
 
-	Version: '1.11',
+	Version: '1.2',
 
 	Ajax: {
 		url: null,
@@ -45,6 +45,12 @@ $.extend($, {
 	},
 
 	Js: {}, // JS: { ij3sdfs: {txt: ['js', 'js'], doc: [document, document]}, b8e64hr: {...} }
+
+// Why not fetch()?
+// fetch uses promises, which is nice. 
+// BUT: fetch is experimental, cookieless by default, promise doesn't reject on error, 
+// timeouts are not supported, aborting is complicated, and there is no progress tracking...
+// In short, it ain't there yet.
 
 // AJAX function
 	ajax: function(opts) {
@@ -208,9 +214,9 @@ $.extend($, {
 		if (!$.t($.Js[id])) {
 			for (var i=0, l=$.Js[id].txt[Len]; i<l; i++) {
 				if (!$.t($.Js[id].txt[i])) {
-					$.JS($.Js[id].txt[i], $.Js[id].doc[i]);					
+					$.JS($.Js[id].txt[i], $.Js[id].doc[i]);
 				}
-			}		
+			}
 			delete $.Js[id];
 		}
 	},
@@ -628,14 +634,15 @@ $.extend($.fn, {
 	// -- Event Observers ------------------------------------
 
 	// jQuery-like delegated event handler (this = parent where listener is attached)
-	// Note this cancels event bubble/default for you!
-	_on: function(event, expr, fn) {
+	// Note this cancels event bubble/default for you - unless last param === false
+	_on: function(event, expr, fn, bubble) {
 		// Prevent attaching if parent doesn't exist (so we can load all handlers on all pages if we want)
 		if ($.t(this[0])) { return; }
+		bubble = (bubble == null ? true : bubble);
 		// Attach to PARENT, filter for child
 		this.on(event, function(evt) {
 			if (evt.target && $(evt.target).is(expr)) {
-				$.S(evt);
+				if (bubble) { $.S(evt); }
 				fn.call($(evt.target), evt); // func will have evt, this = $()
 			}
 		});
@@ -725,4 +732,4 @@ $.extend($.fn, {
 
 });
 
-})(window.$,window,document,'parentNode','position','processData','returnType','contentType','headers','timeout','style','length');
+})(window.$,window,document,'parentNode','position','processData','returnType','contentType','headers','timeout','style','length','requestAnimationFrame');
