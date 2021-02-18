@@ -54,7 +54,7 @@ Pika will work with all modern browsers, including IE10+, Edge, and the majority
 
 PikaJS also includes a few things to improve compatibility with various browsers, but not TOO much. For the most part, I just made sure that what I used wasn't cutting edge, but instead widely supported and generally fast and small.
 
-IE < 10 is not supported, but this shouldn't be a big deal. IE 8 and IE 9 account for about 2.3% of global browser market share as of July 2017. Not also that jQuery 3 no longer supports ancient versions of IE out of the box, either.
+IE < 10 is not supported, but this shouldn't be a big deal. IE 8 and IE 9 are effectively dead, and IE 11 accounts for less than 1% of global browser market share as of February 2021. Note also that jQuery 3.x no longer supports ancient versions of IE out of the box, either.
 
 End users who have IE8 or IE9 and cannot upgrade to an actual, real web browser may wish to simply dowse their puters in gasoline and set them on fire. 
 
