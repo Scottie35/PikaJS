@@ -668,6 +668,8 @@ These effects are NOT chainable. Normally you'd just add them as the last link i
 		'o' = object
 		's' = string
 	
+	BE CAREFUL! Checking for undefined doesn't always work like you think depending on the variable scope and context...
+	
 #### $.T
 
 	$.T('div#my_div')  ->  Like Toggle.display(el) in PrototypeJS (VERY handy!)
