@@ -238,6 +238,7 @@ Two other important notes:
 1. The event bubble/propagation is stopped by `._on()` by default
 
 2. `._on()` checks to make sure that $('ul.mylist') exists first. If it doesn't, it does NOT attach a listener. This means you can use `._on()` to create a whole bunch of listeners in 1 JS file, and if that element doesn't exist on the page, nothing will break because nothing will happen.
+3. If you pass `false` as the 4th parameter (bubble), `._on()` will NOT prevent the event from bubbling. This is handy in certain situations.
 	
 #### .off
 
@@ -606,15 +607,27 @@ These effects are NOT chainable. Normally you'd just add them as the last link i
 
 #### .fade
 
+	$('div.blue').fade();
+	
+	Fades out div.blue instantly; Uses requestAnimationFrame if possible, or setTimeout otherwise
+	
 	$('div.blue').fade(7);
 	
-	Fades out div.blue after 7 seconds; Uses requestAnimationFrame if possible, or setTimeout otherwise
+	Fades out div.blue after 7 seconds
+	
+	$('div.blue').fade(0, true);
+	
+	Fades out div.blue instantly, and then removes the element (2nd param = remove, default is false)
 	
 #### .slideUp
 
+	$('div.blue').slideUp();
+	
+	Slides up div.blue instantly; Uses requestAnimationFrame if possible, or setTimeout otherwise
+	
 	$('div.blue').slideUp(5);
 	
-	Slides up div.blue after 5 seconds; Uses requestAnimationFrame if possible, or setTimeout otherwise
+	Slides up div.blue after 5 seconds
 	
 #### .scrollTo
 
@@ -788,7 +801,7 @@ Sure! The version **pika-pure-min.js** is just pika-min.js but without the anima
 
 IOW, it's PikaJS without `.fade`, `.slideUp`, or `.scrollTo` - each of which are relatively large.
 
-It's only **9.24kB** minified instead of 10.6kB.
+It's only **9.28kB** minified instead of 10.6kB.
 
 That's all, folks!
 
