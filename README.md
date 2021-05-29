@@ -42,7 +42,7 @@ Anyhoo, the idea was to include the best of jQuery and the best of PrototypeJS (
 
 **PrototypeJS 1.7.3 + Script.aculo.us**  =  120 kB minified
 
-**jQuery 3.5.1**  =  87.3 kB
+**jQuery 3.6.0**  =  87.4 kB
 
 **PikaJS**  =  **10.6** kB
 
