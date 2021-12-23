@@ -199,7 +199,8 @@ To make any DOM element chainable, just pass it in to $():
 		$.S(event);
 		// Do stuff here
 		// Do AJAX, or you can submit form like so:
-		this[0].submit();
+		this.submit();
+		// Note that this is the DOM object, NOT $(el) like in ._on()
 	});
 	
 #### ._on
@@ -784,13 +785,13 @@ You would call the above function like:
 If you want to add multiple functions, you can also do this:
 
 	$.extend($, {
-		superfunc = function(a){
+		superfunc: function(a){
 			// blah
 		},
-		megafunc = function(a){
+		megafunc: function(a){
 			// bluh
 		},
-		hyperfunc = function(a){
+		hyperfunc: function(a){
 			// blih
 		}
 	});
