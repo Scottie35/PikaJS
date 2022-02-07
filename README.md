@@ -970,14 +970,6 @@ If you want to add multiple functions, you can also do this:
 		}
 	});
 
-## Can you make it even smaller?
-
-Sure! The version **pika-pure-min.js** is just pika-min.js but without the animation/effects stuff.
-
-IOW, it's PikaJS without `.fade`, `.slideUp`, or `.scrollTo` - each of which are relatively large.
-
-It's only **9.28kB** minified instead of 10.6kB.
-
 That's all, folks!
 
 ~ THE END ~
