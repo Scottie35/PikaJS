@@ -16,7 +16,7 @@ PHEW! Now that that's out of the way...
 
 ## Why PikaJS?
 
-I had been using jQuery and PrototypeJS, and I needed to ditch PrototypeJS at long last. My colleague [Michael Franzl](https://github.com/michaelfranzl) said, "Hey! Check out this [Balalaika](https://github.com/finom/balalaika) thing!" So I did.
+I had been using jQuery and PrototypeJS, and I needed to ditch PrototypeJS at long last. My colleague said, "Hey! Check out this [Balalaika](https://github.com/finom/balalaika) thing!" So I did.
 
 https://github.com/finom/balalaika
 
@@ -24,7 +24,7 @@ https://github.com/finom/balalaika
 
 PikaJS is based on Balalaika, which itself is simply a very, very small "jQuery" that's only 986 bytes in size. When you look at its source code, first you weep. Then, after awhile, you realize that it's actually quite simple. It's just nicely optimized.
 
-Modern browsers (including IE10 and up) will work just fine with Balalaika. At this point, browsers have all the functions they need to do fancy jQuery-like stuff without all kinds of hacks. So, Balalaika simply leverages this built-in functionality in a nice, small, jQuery-like "wrapper".
+Modern browsers (including IE10 and up - COUGH!) will work just fine with Balalaika. At this point, browsers have all the functions they need to do fancy jQuery-like stuff without all kinds of hacks. So, Balalaika simply leverages this built-in functionality in a nice, small, jQuery-like "wrapper".
 
 BUT, the only functions included in Balalaika are:
 
@@ -44,9 +44,9 @@ Anyhoo, the idea was to include the best of jQuery and the best of PrototypeJS (
 
 **jQuery 3.6.0**  =  87.4 kB
 
-**PikaJS**  =  **10.6** kB
+**PikaJS v2.0**  =  **12.5** kB
 
-That's just minified, not gzipped. PikaJS is only **4.4kB** gzipped.
+That's just minified, not gzipped. PikaJS is only **5.0kB** gzipped.
 
 ## Okay, but how compatible is PikaJS?
 
@@ -54,7 +54,7 @@ Pika will work with all modern browsers, including IE10+, Edge, and the majority
 
 PikaJS also includes a few things to improve compatibility with various browsers, but not TOO much. For the most part, I just made sure that what I used wasn't cutting edge, but instead widely supported and generally fast and small.
 
-IE < 10 is not supported, but this shouldn't be a big deal. IE 8 and IE 9 are effectively dead, and IE 11 accounts for less than 1% of global browser market share as of February 2021. Note also that jQuery 3.x no longer supports ancient versions of IE out of the box, either.
+IE < 10 is not supported, but this shouldn't be a big deal. Note also that jQuery 3.x no longer supports ancient versions of IE out of the box, either.
 
 End users who have IE8 or IE9 and cannot upgrade to an actual, real web browser may wish to simply dowse their puters in gasoline and set them on fire. 
 
@@ -110,6 +110,10 @@ First, include the minifed **pika-min.js** in the head of your page.
 
 **Be sure to also remove jQuery, PrototypeJS, or whatever else you're using that commandeers window.$, or you'll be in big trouble!**
 
+**Alternatively, you can call: var $ = Pika.noConflict(); (use whatever var you want instead of $ if necessary)**
+
+PikaJS v2.0 coexists peacefully with any other library you're using that may want to use window.$. That means you can even use jQuery and PikaJS at the same time!
+
 And then, get crackin':
 
 ### DOM Ready
@@ -120,9 +124,7 @@ And then, get crackin':
 
 ### Selectors
 
-	
-
-    $('body') ->  Object [ <body> ]
+	  $('body') ->  Object [ <body> ]
     
     $('img.pic_class') ->  Object [ <img>, <img> ]
     
@@ -138,9 +140,11 @@ And then, get crackin':
     
     $('form[name=myForm]')  ->  Object [ <form#my-form-id> ]
 	
-The return object is basically an array of DOM elements. You can check for existence however you want:
+The return object is basically a quasi-array of DOM elements. You can check for existence however you want:
 
     $('#this_doesnt_exist').length > 0  ->  false
+
+It's important to note that the return value is NOT a traditional array, so Array functions like .pop() won't work. But you can do a for/forEach loop and iterate as usual.
 
 Note that you can also do pure JS stuff very easily like this:
 
@@ -234,15 +238,24 @@ The reason is that the delegated event listener is attached to 'ul.mylist', and 
 
 So you can add/remove `<LI>` like crazy, and it will "just work". One listener is all you need!
 
-Two other important notes:
+Four other important notes:
 
-1. The event bubble/propagation is stopped by `._on()` by default
+1. The event bubble/propagation is stopped by `._on()` by default. You can override this default behavior by setting `$.Bubble = true;` in your code to make PikaJS work like jQuery.
 
 2. `._on()` checks to make sure that $('ul.mylist') exists first. If it doesn't, it does NOT attach a listener. This means you can use `._on()` to create a whole bunch of listeners in 1 JS file, and if that element doesn't exist on the page, nothing will break because nothing will happen.
 3. If you pass `false` as the 4th parameter (bubble), `._on()` will NOT prevent the event from bubbling. This is handy in certain situations.
+4. Mouseenter events are converted to Mouseover, and Mouseleave to Mouseout. This is to make such events work consistently since these events normally do not bubble. You can still override bubbling if you want!
+
+#### .one
+
+	// For those non-delegated event handlers that you only want to happen **once**:
+	$('.my-selector').one('click', function() {
+		alert('This will happen only once, and then remove itself!');
+	});
 	
 #### .off
 
+	// This works with both `.on()` and `._on()` - just be sure to add the same namespace to each event name
 	$('.my-selector').off('click.namespace');
 
 #### .onChange
@@ -359,10 +372,18 @@ In short, it's not quite 'there' yet, so you can just use it yourself if you wan
 	$('#myForm').formData(false)
 	
 	Returns string that is the serialized values of all fields in FORM with id #myForm
-	
+
+** Note that unless otherwise noted in the follow functions:
+	- 'html' = string of text that is HTML code to be converted into DOM nodes by Pika
+	- el = Pika-selected object/element, such as `$('div.this-div')`
+
 #### .select
 
 See above in [Selectors](#selectors) section
+
+#### .find
+
+Alias of .select
 	
 #### .parent
 
@@ -378,13 +399,24 @@ See above in [Selectors](#selectors) section
 
 #### .html
 
-	$('#mydiv').html()
+	$('#mydiv').html();
 	
 	Returns element's innerHTML as string
 	
 	$('#mydiv').html('<em>Some text!</em>');
 	
 	Sets element's contents to passed-in HTML; Any JS is executed; Chainable;
+	For updating multiple elements, use .each
+
+#### .text
+
+	$('#mydiv').text();
+	
+	Returns element's innerText as string
+	
+	$('#mydiv').text('Some text!');
+	
+	Sets element's innerText contents to passed-in string; Chainable;
 	For updating multiple elements, use .each
 
 #### .update
@@ -396,36 +428,46 @@ See above in [Selectors](#selectors) section
 #### .replace
 
 	$('#mydiv').replace('html');
+	$('#mydiv').replace(el);
+	$('#mydiv').replace($('#yourdiv'));
 	
-	Replaces element's contents and returns that element; Chainable; JS executed;
+	Replaces element's contents with 'html' or Pika-selected element and returns the replaced element; Chainable; JS executed;
 	For replacing multiple elements, use .each
 
 #### .append
 
 	$('#mydiv').append('html');
-	
-	Insert 'html' as last child element inside #mydiv; Chainable; JS executed;
+	$('#mydiv').append(el);
+	$('#mydiv').append($('#yourdiv'));
+
+	Insert 'html' or Pika-selected element as last child element inside #mydiv; Chainable; JS executed;
 	For multiple elements, use .each
 
 #### .prepend
 
 	$('#mydiv').prepend('html');
+	$('#mydiv').prepend(el);
+	$('#mydiv').prepend($('#yourdiv'));
 	
-	Insert 'html' as first child element inside #mydiv; Chainable; JS executed;
+	Insert 'html' or Pika-selected element as first child element inside #mydiv; Chainable; JS executed;
 	For multiple elements, use .each
 
 #### .before
 
 	$('#mydiv').before('html');
+	$('#mydiv').before(el);
+	$('#mydiv').before($('#yourdiv'));
 	
-	Insert 'html' as new sibling element before #mydiv; Chainable; JS executed;
+	Insert 'html' or Pika-selected element as new sibling element before #mydiv; Chainable; JS executed;
 	For multiple elements, use .each
 
 #### .after
 
 	$('#mydiv').after('html');
+	$('#mydiv').after(el);
+	$('#mydiv').after($('#yourdiv'));
 	
-	Insert 'html' as new sibling element after #mydiv; Chainable; JS executed;
+	Insert 'html' or Pika-selected element as new sibling element after #mydiv; Chainable; JS executed;
 	For multiple elements, use .each
 
 #### .up
@@ -481,7 +523,52 @@ See above in [Selectors](#selectors) section
 	$('div.some_class').last();
 	
 	Get the last element from the selected elements; Chainable
+
+#### .eq
+
+	$('div.some_class').eq(2);	->	Object [ <div> ]
 	
+	Get the THIRD DIV with class 'some_class' from the selected elements; Indexing starts at 0; Chainable
+
+#### .children $$
+
+	$('div.some_class').children();
+	
+	Get the children of the selected element; Returns Pika object/array of elements; Chainable
+
+	$('div.some_class').children('span.cheeseburger');
+	
+	Get the children of the selected element that match the given selector; Returns Pika object/array of elements; Chainable
+
+#### .siblings $$
+
+	$('div.some_class').siblings();
+	
+	Get the siblings of the selected element; Returns Pika object/array of elements; Chainable
+
+	$('div.some_class').siblings('span.cheeseburger');
+	
+	Get the siblings of the selected element that match the given selector; Returns Pika object/array of elements; Chainable
+
+#### .wrap $$
+
+	$('div.some_class').wrap('html');
+	
+	Replaces 'div.some_class' with new 'html', and inserts 'div.some_class' as a child; Returns node that was wrapped; Chainable
+
+#### .unwrap $$
+
+	$('div.some_class').unwrap();
+	
+	Replace 'div.some_class' parent with 'div.some_class'; Returns node that was unwrapped; Chainable
+
+#### .contains $$
+
+	$('div.some_class').contains(el);
+	$('div.some_class').contains($('div.your_class'));
+	
+	Does 'div.some_class' contain Pika selected el? Returns boolean
+
 #### .attr
 
 	$('div.crazy').attr('id');
@@ -493,16 +580,18 @@ See above in [Selectors](#selectors) section
 	Set the id attribute of div.crazy to 'my-super-id'; Chainable;
 	For multiple elements, use .each
 
-#### .val
+#### .removeAttr
 
-	$('input#cheese').val();
+	$('div.crazy').removeAttr('id');
 	
-	Get the value of input#cheese
-
-	$('input#cheese').val('Whiz!');
-	
-	Set the value of input#cheese; Chainable;
+	Remove the id attribute of div.crazy; Chainable;
 	For multiple elements, use .each
+
+#### .hasClass
+
+	$('div.crazy').hasClass('red');
+	
+	Does first element matching selector have class 'red'? Returns boolean
 
 #### .addClass
 
@@ -515,6 +604,24 @@ See above in [Selectors](#selectors) section
 	$('div.crazy').removeClass('red');
 	
 	Removes class 'red' from ALL divs that have class 'crazy'; Chainable; No .each required!
+
+#### .toggleClass
+
+	$('div.crazy').toggleClass('red');
+	
+	Adds or removes class 'red' from ALL divs that have class 'crazy'; Chainable; No .each required!
+
+#### .val
+
+	$('input#cheese').val();
+	$('select#country').val();
+	
+	Get the value of input#cheese. This also works on SELECT lists and RADIO buttons to get the currently selected option value
+
+	$('input#cheese').val('Whiz!');
+	
+	Set the value of input#cheese; Chainable;
+	For multiple elements, use .each
 
 #### .show
 
@@ -532,7 +639,7 @@ See above in [Selectors](#selectors) section
 
 	$('div.red').visible()
 	
-	Returns true or false depending on if div.red is visible or hidden
+	Is first matched instance of div.red visible or hidden? Returns boolean
 
 #### .css
 
@@ -548,26 +655,88 @@ See above in [Selectors](#selectors) section
 	Sets CSS for ALL div.red as specified; Chainable; Note that values like 'background-color' need 
 	to be passed as a string due to the hyphen. Note also that rgb values and short hex color values 
 	like #fff will be automagically converted into #aabbcc hex format for both getting and setting. 
-	Finally, it's up to you to compensate for any 'background-color' vs 'backgroundColor' problems.
+
+	You can also set 1 param without the { } like so:
+
+	$('div.red').css('opacity', '0.5');
+	
+	.css can also find getComputedStyle values for you automatically. In other words, you do NOT have
+	to do this:
+
+		document.defaultView.getComputedStyle($('.date_selector')[0])['border-right-width']);
+
+	Just do this:
+
+		$('.date_selector').css('border-right-width');
+	
+	Finally, it's up to you to compensate for any 'background-color' vs 'backgroundColor' problems. 
+	Note that if you get this wrong, .css may be returning a getComputedStyle value, and not the
+	defined CSS value! So, yeah - don't get it wrong.
+
+#### .cOff
+
+	$('div.red').cOff();
+	
+	Returns position of div.red on the page relative to the top left corner of the window (aka cumulative offset position).
+	It turns an object with: top, left, x, and y:
+		Object {
+			top: 340,
+			left: 367,
+			x: 367,
+			y: 240
+		}
+
+#### .offset
+
+	$('div.red').offset();
+	
+	Returns object with position of div.red relative to document like so:
+		Object { top: 340, left: 367 }
+
+#### .offsetParent
+
+	$('div.red').offsetParent();
+	
+	Returns offsetParent of div.red; Chainable
+
+#### .position
+
+	$('div.red').position();
+	
+	Returns position of div.red relative to offsetParent like so:
+		Object { top: 420, left: 310 }
 
 #### .getDimensions
 
-	$('div.red').getDimensions()
+	$('div.red').getDimensions();
 	
 	Returns object with dimensions of div.red like so:
 		Object { width: 340, height: 367 }
 
-#### .getHeight
+#### .dimensions
 
-	$('div.red').getHeight()
-	
-	Returns number equal to height of div.red; Convenience wrapper for .getDimensions
+	Alias of .getDimensions
 
 #### .getWidth
 
-	$('div.red').getWidth()
+	$('div.red').getWidth();
 	
 	Returns number equal to width of div.red; Convenience wrapper for .getDimensions
+
+#### .width
+
+	Alias of .getWidth
+
+#### .getHeight
+
+	$('div.red').getHeight();
+	
+	Returns number equal to height of div.red; Convenience wrapper for .getDimensions
+
+#### .height
+
+	Alias of .getHeight
+
 
 #### .each
 
@@ -576,10 +745,12 @@ See above in [Selectors](#selectors) section
 	});
 	
 	Iterates over each instance of div.red and sets the innerHTML of each to 'Uh-oh!'; JS executed
+	Inside the .each function passed in, this = the current element
+	If the passed-in function returns false, the loop is aborted.
 
 #### .blank
 
-	$('div.red').blank()
+	$('div.red').blank();
 	
 	Returns true if value (for form elements) or innerHTML of selected element is empty, false otherwise
 	
@@ -587,7 +758,13 @@ See above in [Selectors](#selectors) section
 
 	$('input#firstName').focus();
 	
-	Focus browser on input#firstName
+	Focus browser on input#firstName; Chainable
+
+#### .blur
+
+	$('input#firstName').blur();
+	
+	Remove browser's focus on input#firstName; Chainable
 
 #### .data
 
@@ -599,55 +776,52 @@ See above in [Selectors](#selectors) section
 	
 	Sets data attribute data-snausage on ALL divs with class='blue'; Chainable;
 	For multiple elements, use .each
+
+#### .removeData
+
+	$('div.blue').removeData('snausage');
+	
+	Removes attribute 'data-snausage' from div.blue; Chainable
 	
 ### Animations and fun effects:
 
-Note that Element.animate is great, but not yet widely supported - and still "experimental".
-
-These effects are NOT chainable. Normally you'd just add them as the last link in the chain anyway, like: `$('#blah').html('ERROR: You suck!').show().fade(7);`
-
-#### .fade
-
-	$('div.blue').fade();
-	
-	Fades out div.blue instantly; Uses requestAnimationFrame if possible, or setTimeout otherwise
-	
-	$('div.blue').fade(7);
-	
-	Fades out div.blue after 7 seconds
-	
-	$('div.blue').fade(0, true);
-	
-	Fades out div.blue instantly, and then removes the element (2nd param = remove, default is false)
-	
-#### .slideUp
-
-	$('div.blue').slideUp();
-	
-	Slides up div.blue instantly; Uses requestAnimationFrame if possible, or setTimeout otherwise
-	
-	$('div.blue').slideUp(5);
-	
-	Slides up div.blue after 5 seconds
-	
-#### .scrollTo
-
-	$('div.blue').scrollTo();
-	
-	Smooth scrolls up or down to the location of div.blue in the document.
-	Uses requestAnimationFrame if possible, or setTimeout otherwise.
-	
-	$('div.blue').scrollTo({
-		duration: 0.3,
-		offset: -200
-	});
-	
-	Smooth scrolls up or down to the location of div.blue, -200 pixels, in the document. 
-	Since default duration is 0.5 (about 0.5s), the given duration of 0.3 will scroll faster. 
-	Uses requestAnimationFrame if possible, or setTimeout otherwise
+**These have been improved and moved into the Pika Animate plugin. Check it out as it's now quite powerful!**
 
 ### Special internal methods you can use if you want:
 		
+#### $.noConflict
+
+	var $p = Pika.noConflict();
+	
+	Make PikaJS work via variable $p instead of the default $.
+	This means you can use PikaJS and jQuery at the same time (or any other library that uses $)
+
+#### $.Bubble
+
+	Default is false; Set to true if you want ._on and .one events to ALWAYS bubble - aka 'jQuery mode'
+
+#### $.each
+
+	$.each (obj, function(key, value) {
+		console.log("key =", key, ", ", value = ", value);
+	});
+	
+	This is NOT the same as $.fn.each, which is for iterating over Pika selector results.
+	This .each iterates over ANY JavaScript object you pass to it.
+	The passed-in function will have:
+		key = name of object property
+		value = value of object property
+		this = the object itself
+	If the passed-in function returns false, the loop is aborted.
+
+#### $.doEl
+
+	$.doEl(el)
+
+	Used internally by .replace, .append, .prepend, .before, and .after
+	When el is a PikaJS object, it returns el[0] (the first selected result)
+	When el is an HTML string, the string is converted to HTML by $.H (and any JS is executed)
+
 #### $.H
 
 	Used internally to improve on Balalaika's conversion from text -> HTML. Uses
@@ -807,3 +981,4 @@ It's only **9.28kB** minified instead of 10.6kB.
 That's all, folks!
 
 ~ THE END ~
+
