@@ -530,7 +530,7 @@ Alias of .select
 	
 	Get the THIRD DIV with class 'some_class' from the selected elements; Indexing starts at 0; Chainable
 
-#### .children $$
+#### .children
 
 	$('div.some_class').children();
 	
@@ -540,7 +540,7 @@ Alias of .select
 	
 	Get the children of the selected element that match the given selector; Returns Pika object/array of elements; Chainable
 
-#### .siblings $$
+#### .siblings
 
 	$('div.some_class').siblings();
 	
@@ -550,19 +550,19 @@ Alias of .select
 	
 	Get the siblings of the selected element that match the given selector; Returns Pika object/array of elements; Chainable
 
-#### .wrap $$
+#### .wrap
 
 	$('div.some_class').wrap('html');
 	
 	Replaces 'div.some_class' with new 'html', and inserts 'div.some_class' as a child; Returns node that was wrapped; Chainable
 
-#### .unwrap $$
+#### .unwrap
 
 	$('div.some_class').unwrap();
 	
 	Replace 'div.some_class' parent with 'div.some_class'; Returns node that was unwrapped; Chainable
 
-#### .contains $$
+#### .contains
 
 	$('div.some_class').contains(el);
 	$('div.some_class').contains($('div.your_class'));
