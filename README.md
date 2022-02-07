@@ -2,6 +2,8 @@
 
 PikaJS is like jQuery or PrototypeJS, only smaller, lighter, and more efficient.
 
+[Take me to the Good Stuff!](#so-how-do-i-use-it)
+
 ## How do you say "Pika"?
 
 However you want.
