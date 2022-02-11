@@ -787,7 +787,7 @@ Alias of .select
 	
 ### Animations and fun effects:
 
-**These have been improved and moved into the Pika Animate plugin. Check it out as it's now quite powerful!**
+**These have been improved and moved into the [Pika Animate](https://github.com/Scottie35/PikaJS-Animate) plugin. Check it out as it's now quite powerful!**
 
 ### Special internal methods you can use if you want:
 		
