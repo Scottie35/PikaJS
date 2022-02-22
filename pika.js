@@ -1,5 +1,5 @@
 /**
- * 	@license PikaJS v2.0
+ * 	@license PikaJS v2.0.1
  * 	© 2022 Scott Ogrin - MIT License
  * 	Balalaika v1.0.1 - https://github.com/finom/balalaika - MIT License
  */
@@ -368,6 +368,25 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 				cont = $.H(el, id);
 			}
 			return [cont, id];
+		},
+
+		debounce: function(func, delay, now) {
+		  var timeout;
+		  delay = delay || 100;
+		  now = now || false;
+		  return function debounced() {
+		    var obj = this, args = arguments;
+		    function delayed () {
+		      if (!now) { func.apply(obj, args); }
+		      timeout = null; 
+		    }
+		    if (timeout) {
+		      clearTimeout(timeout);
+		    } else if (now) {
+		      func.apply(obj, args);
+		    }
+		    timeout = setTimeout(delayed, delay); 
+		  }
 		}
 
 	});
@@ -432,7 +451,7 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 		  	res = this[0].appendChild(ret[0]);
 		  	if (ret[1]) $.execJS(ret[1]);
 		  }
-		  return !$.t(res) ? $(res) : this;;	// Returns appended child
+		  return !$.t(res) ? $(res) : this;	// Returns appended child
 		},
 
 		prepend: function(el) {
