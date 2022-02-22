@@ -789,7 +789,7 @@ Alias of .select
 
 **These have been improved and moved into the [Pika Animate](https://github.com/Scottie35/PikaJS-Animate) plugin. Check it out as it's now quite powerful!**
 
-### Special internal methods you can use if you want:
+### Special methods NOT tied to Pika objects:
 		
 #### $.noConflict
 
@@ -873,7 +873,35 @@ Alias of .select
 	
 	The second param document can be omitted, or it can be included if you want to use a different 
 	context. The JS is executed immediately.
+
+#### $.debounce
+
+	Debouncing function to prevent, say, rapid-fire mouse events from overloading the JS engine. You use it like this:
 	
+	$.debounce(func, delay, now);
+	
+	`delay` defaults to 100ms, and `now` defaults to `false`.
+	
+	So instead of doing this:
+	
+	$(window).on('resize', function() {
+	  console.log("window resize!");
+	});
+	
+	Which will fire 80 gajillion times, you can do this:
+	
+	function resize() {
+	  console.log("window resize!");
+	}
+	$(window).on('resize', $.debounce(resize));
+
+	Which will only fire 100ms after the window resizing events have stopped.
+	You can also customize the delay by padding `delay` in ms, and you can trigger the function to 
+	happen immediately (before the `delay`) by passing `now` = true.
+	
+	$.debounce is merely a wrapper around your `func`, so you can pass arguments including `event`
+	just like in a normal `.on` event handler.
+
 ### Finally, miscellaneous variables and methods
 
 $ includes the following default values for PikaJS:
