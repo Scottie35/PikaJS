@@ -1,5 +1,5 @@
 /**
- * 	@license PikaJS v2.0.1
+ * 	@license PikaJS v2.0.2
  * 	© 2022 Scott Ogrin - MIT License
  * 	Balalaika v1.0.1 - https://github.com/finom/balalaika - MIT License
  */
@@ -12,7 +12,7 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 
 	$.extend($, {
 
-		Version: '2.0',
+		Version: '2.0.2',
 		Bubble: false,
 		Ajax: {
 			url: null,
@@ -396,8 +396,13 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 		// -- Selectors and DOM manipulation ---------------------
 		
 		select: function(expr) {
-			// Find elements expr inside another selector $(this)
-			return $(expr, this[0]);
+			var els = [];
+			this.forEach(function(el) {
+				$(expr, el).forEach(function(e) {
+					els.push(e)
+				});
+			});
+			return $(els);
 		},
 
 		parent: function() {
