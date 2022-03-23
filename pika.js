@@ -1,5 +1,5 @@
 /**
- * 	@license PikaJS v2.0.2
+ * 	@license PikaJS v2.0.3
  * 	© 2022 Scott Ogrin - MIT License
  * 	Balalaika v1.0.1 - https://github.com/finom/balalaika - MIT License
  */
@@ -12,7 +12,7 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 
 	$.extend($, {
 
-		Version: '2.0.2',
+		Version: '2.0.3',
 		Bubble: false,
 		Ajax: {
 			url: null,
@@ -667,7 +667,12 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 
 		show: function(type) {
 		  this.forEach(function(el) {
-			  el[Styl].display = type || (el.tagName == 'SPAN' ? 'inline-block' : 'block');
+		  	if (el[Styl].display == 'none') {
+		  		el[Styl].display = null;
+		  		if (el[Styl] == '') { el.removeAttribute('style'); }
+		  	} else {
+		  		el[Styl].display = type || (el.tagName == 'SPAN' ? 'inline-block' : 'block');	
+		  	}
 		  });
 		  return this;
 		},
