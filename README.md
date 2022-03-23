@@ -628,8 +628,11 @@ Alias of .select
 #### .show
 
 	$('div.red').show();
+	$('div.red').show('flex');
 	
 	Sets ALL divs with class 'red' to visible; Chainable
+	By default, `.show` will check for an inline style `display: none` attribute and use the defined CSS behind it if possible.
+	Or, you can specify the `display` value yourself.
 
 #### .hide
 
