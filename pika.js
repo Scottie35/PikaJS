@@ -669,7 +669,7 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 		  this.forEach(function(el) {
 		  	if (el[Styl].display == 'none') {
 		  		el[Styl].display = null;
-		  		if (el[Styl] == '') { el.removeAttribute('style'); }
+		  		if ($(el).attr('style') == '') { el.removeAttribute('style'); }
 		  	} else {
 		  		el[Styl].display = type || (el.tagName == 'SPAN' ? 'inline-block' : 'block');	
 		  	}
