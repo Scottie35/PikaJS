@@ -1,5 +1,5 @@
 /**
- * 	@license PikaJS v2.0.3
+ * 	@license PikaJS v2.0.4
  * 	© 2022 Scott Ogrin - MIT License
  * 	Balalaika v1.0.1 - https://github.com/finom/balalaika - MIT License
  */
@@ -8,11 +8,11 @@ var __$ = window.$;
 
 window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new h.i(t,e)},h.i=function(i,o){n.push.apply(this,i?i.nodeType||i==t?[i]:""+i===i?/</.test(i)?((u=e.createElement(o||"q")).innerHTML=i,u.children):(o&&h(o)[0]||e).querySelectorAll(i):/f/.test(typeof i)?/c/.test(e.readyState)?i():h(e).on("DOMContentLoaded",i):i:n)},h.i[l="prototype"]=(h.extend=function(t){for(f=arguments,u=1;u<f.length;u++)if(l=f[u])for(c in l)t[c]=l[c];return t})(h.fn=h[l]=n,{on:function(t,e){return t=t.split(i),this.map(function(n){(i[u=t[0]+(n.b$=n.b$||++o)]=i[u]||[]).push([e,t[1]]),n["add"+r](t[0],e)}),this},off:function(t,e){return t=t.split(i),l="remove"+r,this.map(function(n){if(f=i[t[0]+n.b$],u=f&&f.length)for(;c=f[--u];)e&&e!=c[0]||t[1]&&t[1]!=c[1]||(n[l](t[0],c[0]),f.splice(u,1));else!t[1]&&n[l](t[0],e)}),this},is:function(t){return u=this[0],(u.matches||u["webkit"+s]||u["moz"+s]||u["ms"+s]).call(u,t)}}),h}(window,document,[],/\.(.+)/,0,"EventListener","MatchesSelector");
 
-(function($, Doc, DocEl, OwnDoc, DefVw, PN, Pos, PrcDt, RtTyp, CntTyp, Hdrs, TmOt, Styl, Ln, RelT, pI, Me, Ml, Mv){
+(function($, Doc, DocEl, OwnDoc, DefVw, PN, Pos, PrcDt, RtTyp, CntTyp, Hdrs, TmOt, Styl, Ln, RelT, pI, Me, Ml, Mv, Mt){
 
 	$.extend($, {
 
-		Version: '2.0.3',
+		Version: '2.0.4',
 		Bubble: false,
 		Ajax: {
 			url: null,
@@ -376,7 +376,7 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 		  now = now || false;
 		  return function debounced() {
 		    var obj = this, args = arguments;
-		    function delayed () {
+		    function delayed() {
 		      if (!now) { func.apply(obj, args); }
 		      timeout = null; 
 		    }
@@ -667,10 +667,13 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 
 		show: function(type) {
 		  this.forEach(function(el) {
+		  	// Inline check
 		  	if (el[Styl].display == 'none') {
 		  		el[Styl].display = null;
 		  		if ($(el).attr('style') == '') { el.removeAttribute('style'); }
-		  	} else {
+		  	} 
+		  	// Stylesheet check
+		  	if ($(el).css('display') == 'none') {
 		  		el[Styl].display = type || (el.tagName == 'SPAN' ? 'inline-block' : 'block');	
 		  	}
 		  });
@@ -808,13 +811,14 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 		_on: function(event, expr, fn, stopbubl) {
 			// Prevent attaching if el doesn't exist (so we can load all handlers on all pages if we want)
 			if ($.t(this[0])) { return; }
-			var special = false;
+			var special = false, evtonly = event.split('.')[0], evtname = event.split('.')[1];
 			stopbubl = ($.t(stopbubl) ? (!$.Bubble) : stopbubl);
 			// Change mouseenter->mousover, mouseleave->mouseout (with special checks below)
-			if (event == Me || event == Ml) {
+			if (evtonly == Me || evtonly == Ml) {
 				special = true;
-				event = (event == Me) ? Mv : Ml;
+				evtonly = (evtonly == Me) ? Mv : Mt;
 			}
+			if (special) { event = evtonly + ($.t(evtname) ? '' : '.' + evtname); }
 			// Attach to PARENT, filter for child
 			this.on(event, function(evt) {
 				if (evt.target && $(evt.target).is(expr)) {
@@ -835,13 +839,14 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 		one: function(event, fn, stopbubl) {
 			// Prevent attaching if el doesn't exist (so we can load all handlers on all pages if we want)
 			if ($.t(this[0])) { return; }
-			var special = false;
+			var special = false, evtonly = event.split('.')[0], evtname = event.split('.')[1];
 			stopbubl = ($.t(stopbubl) ? !$.Bubble : stopbubl);
 			// Change mouseenter->mousover, mouseleave->mouseout (with special checks below)
 			if (event == Me || event == Ml) {
 				special = true;
-				event = (event == Me) ? Mv : Ml;
+				event = (event == Me) ? Mv : Mt;
 			}
+			if (special) { event = evtonly + ($.t(evtname) ? '' : '.' + evtname); }
 			var that = this;
 			this.on(event, function(evt) {
 				// See ._on() for an explanation of this lunacy!
@@ -955,7 +960,7 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 
 	});
 
-})(window.Pika, document, 'documentElement', 'ownerDocument', 'defaultView', 'parentNode', 'position', 'processData', 'returnType', 'contentType', 'headers', 'timeout', 'style', 'length', 'relatedTarget', parseInt, 'mouseenter', 'mouseleave', 'mouseover');
+})(window.Pika, document, 'documentElement', 'ownerDocument', 'defaultView', 'parentNode', 'position', 'processData', 'returnType', 'contentType', 'headers', 'timeout', 'style', 'length', 'relatedTarget', parseInt, 'mouseenter', 'mouseleave', 'mouseover', 'mouseout');
 
 Pika.noConflict = function() {
 	if (window.$ === Pika) { window.$ = __$; }
