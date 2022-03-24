@@ -46,9 +46,9 @@ Anyhoo, the idea was to include the best of jQuery and the best of PrototypeJS (
 
 **jQuery 3.6.0**  =  87.4 KB
 
-**PikaJS v2.0.1**  =  **12.7** KB
+**PikaJS v2.0.4**  =  **13.0** KB
 
-That's just minified, not gzipped. PikaJS is only **5.0KB** gzipped.
+That's just minified, not gzipped. PikaJS is only **5.1KB** gzipped.
 
 ## Okay, but how compatible is PikaJS?
 
@@ -90,7 +90,7 @@ It's just a "new" way of working. Most of the functionality you've come to expec
 
 There are benefits to doing things this way. When your library isn't extending every object out the wazoo, memory usage drops.
 
-When it doesn't hold your hand, you are forced to code better, to **think** about performance and stability, and to think about exactly what your event listeners are doing and *how* they are working. You learn more, and you write better code.
+When it doesn't hold your hand, you are forced to code better, to **think** about performance and stability, and to think about exactly what your event listeners are doing and *how* they are working. You learn more, and you .write better code.
 
 Historically, programmers tend to use some framework that is, "the latest thing". They never actually bother to look at source code and see if they can improve upon what has been done. Need some new functionality? There's a gem/library/node/photon for that!
 
@@ -618,7 +618,8 @@ Alias of .select
 	$('input#cheese').val();
 	$('select#country').val();
 	
-	Get the value of input#cheese. This also works on SELECT lists and RADIO buttons to get the currently selected option value
+	Get the value of input#cheese. This also works on SELECT lists and RADIO buttons to 
+	get the currently selected option value
 
 	$('input#cheese').val('Whiz!');
 	
@@ -631,7 +632,8 @@ Alias of .select
 	$('div.red').show('flex');
 	
 	Sets ALL divs with class 'red' to visible; Chainable
-	By default, `.show` will check for an inline style `display: none` attribute and use the defined CSS behind it if possible.
+	By default, `.show` will check for an inline style `display: none` attribute and use 
+	the defined CSS behind it if possible.
 	Or, you can specify the `display` value yourself.
 
 #### .hide
