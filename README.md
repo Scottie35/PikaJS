@@ -94,7 +94,7 @@ It's just a "new" way of working. Most of the functionality you've come to expec
 
 There are benefits to doing things this way. When your library isn't extending every object out the wazoo, memory usage drops.
 
-When it doesn't hold your hand, you are forced to code better, to **think** about performance and stability, and to think about exactly what your event listeners are doing and *how* they are working. You learn more, and you .write better code.
+When it doesn't hold your hand, you are forced to code better, to **think** about performance and stability, and to think about exactly what your event listeners are doing and *how* they are working. You learn more, and you write better code.
 
 Historically, programmers tend to use some framework that is, "the latest thing". They never actually bother to look at source code and see if they can improve upon what has been done. Need some new functionality? There's a gem/library/node/photon for that!
 
