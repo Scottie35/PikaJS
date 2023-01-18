@@ -885,7 +885,8 @@ Alias of .select
 
 #### $.debounce
 
-	Debouncing function to prevent, say, rapid-fire mouse events from overloading the JS engine. You use it like this:
+	Debouncing function to prevent, say, rapid-fire mouse events from overloading the JS engine.
+	You use it like this:
 	
 	$.debounce(func, delay, now);
 	
@@ -905,7 +906,7 @@ Alias of .select
 	$(window).on('resize', $.debounce(resize));
 
 	Which will only fire 100ms after the window resizing events have stopped.
-	You can also customize the delay by padding `delay` in ms, and you can trigger the function to 
+	You can also customize the delay by adding `delay` in ms, and you can trigger the function to 
 	happen immediately (before the `delay`) by passing `now` = true.
 	
 	$.debounce is merely a wrapper around your `func`, so you can pass arguments including `event`
