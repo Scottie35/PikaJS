@@ -854,7 +854,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 				// el.pid$ - internal id for an element
 				// n[0] + el.pid$ - eventName + id ("click75")
 				var i, j;
-				evts = nsRegXnEvts[n[0] + el.pid$];
+				evts = nsRegXnEvts[event[0] + el.pid$];
 				// if array of events exist then i = length of array of events
 				if(i = evts && evts.length) {
 					// while j = one of array of events
