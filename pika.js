@@ -366,12 +366,12 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 		},
 
 		// Object iterator (NOT the same as $.fn.each !!)
-		each: function(obj, fn) {
+		each: function(obj, f) {
 			var keys = Object.keys(obj);
 			for (var i=0, l=keys[Ln]; i<l; ++i) {
 				// func will be passed name, props, with this = obj
 				// If func returns false, loop is aborted
-				if (fn.call(obj, keys[i], obj[keys[i]]) === false) { break; }
+				if (f.call(obj, keys[i], obj[keys[i]]) === false) { break; }
 			}
 		},
 
@@ -828,7 +828,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 
 		// -- Event Observers ------------------------------------
 
-		on: function(event, fn) {
+		on: function(event, f) {
 			// Prevent attaching if el doesn't exist (so we can load all handlers on all pages if we want)
 			if ($.t(this[0])) { return; }
 			// event = [ eventName, nameSpace ]
@@ -839,16 +839,15 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 				// el.pid$ is internal ID for an element
 				// i is eventName + id ("click75")
 				// nsRegXnEvts[i] is array of events (eg all click events for element#75) ([[handler, namespace], [handler, namespace]])
-				(nsRegXnEvts[i = event[0] + (el.pid$ = el.pid$ || ++Eid)] = nsRegXnEvts[i] || []).push([fn, event[1]]);
-				el.addEventListener(event[0], fn);
+				(nsRegXnEvts[i = event[0] + (el.pid$ = el.pid$ || ++Eid)] = nsRegXnEvts[i] || []).push([f, event[1]]);
+				el.addEventListener(event[0], f);
 			});
 			return this;
 		},
 
-		off: function(event, fn) {
+		off: function(event, f) {
 			// event = [ eventName, nameSpace ]
 			event = event.split(nsRegXnEvts);
-			// l = 'removeEventListener'
 			var rEL = 'removeEventListener';
 			this.map(function(el) {
 				// el.pid$ - internal id for an element
@@ -859,8 +858,8 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 				if(i = evts && evts.length) {
 					// while j = one of array of events
 					while(j = evts[--i]) {
-						// if (no fn and no namespace || f but no namespace || no f but namespace || f and namespace)
-						if((!fn || fn == j[0]) && (!event[1] || event[1] == j[1])) {
+						// if (no f and no namespace || f but no namespace || no f but namespace || f and namespace)
+						if((!f || f == j[0]) && (!event[1] || event[1] == j[1])) {
 							// el.removeEventListener(eventName, handler);
 							el[rEL](event[0], j[0]);
 							// remove event from array of events
@@ -868,8 +867,8 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 						}
 					}
 				} else {
-					// If event added before using addEventListener, just remove it using el.removeEventListener(eventName, fn)
-					!event[1] && el[rEL](event[0], fn);
+					// If event added before using addEventListener, just remove it using el.removeEventListener(eventName, f)
+					!event[1] && el[rEL](event[0], f);
 				}	
 			});
 			return this;
@@ -877,7 +876,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 
 		// jQuery-like delegated event handler (this = parent where listener is attached)
 		// Note this cancels event bubble/default for you if $.Bubble == false - unless last param === false
-		_on: function(event, expr, fn, stopbubl) {
+		_on: function(event, expr, f, stopbubl) {
 			// Prevent attaching if el doesn't exist (so we can load all handlers on all pages if we want)
 			if ($.t(this[0])) { return; }
 			var special = false, evtarr = event.split(nsRegXnEvts);
@@ -896,7 +895,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 						// We make mouseenter/leave into over/out AND and do some special checking
 						// This allows delegated mouseenter/leave listeners since normally, they don't bubble
 						// In short, we do NOT fire the event if we're dealing with entering or leaving a child element in some cases
-						fn.call($(evt.target), evt); // func will have evt, this = $()
+						f.call($(evt.target), evt); // func will have evt, this = $()
 					}
 				}
 			});
@@ -906,7 +905,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 		// Non-delegated event handler that removes itself after 1st event
 		// Note this cancels event bubble/default for you if $.Bubble == false - unless last param === false
 		// We don't use addEventListener with {once: true} becuz we want to do fancy stuff:
-		one: function(event, fn, stopbubl) {
+		one: function(event, f, stopbubl) {
 			// Prevent attaching if el doesn't exist (so we can load all handlers on all pages if we want)
 			if ($.t(this[0])) { return; }
 			var special = false, evtarr = event.split(nsRegXnEvts);
@@ -914,7 +913,6 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 			// Change mouseenter->mousover, mouseleave->mouseout (with special checks below)
 			if (evtarr[0] == Me || evtarr[0] == Ml) {
 				special = true;
-//				evtarr[0] = (evtarr[0] == Me) ? Mv : Mt;
 				event = ((evtarr[0] == Me) ? Mv : Mt) + ($.t(evtarr[1]) ? '' : '.' + evtarr[1]);
 			}
 			var that = this;
@@ -922,7 +920,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 				// See ._on() for an explanation of this lunacy!
 				if (stopbubl) { $.S(evt); }
 				if (!special || (!evt[RelT] || (evt[RelT] !== evt.target && !evt.target.contains(evt[RelT])))) {
-					fn.call($(evt.target), evt);
+					f.call($(evt.target), evt);
 					// Only run once!
 					that.off(event);
 				}
@@ -930,15 +928,15 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 			return this;
 		},
 
-		// Check value every (time) ms and call fn if changed
-		onChange: function(time, fn) {
+		// Check value every (time) ms and call f if changed
+		onChange: function(time, f) {
 			if (!$.t(this[0])) {
 				var that = this, value = this.val();
 				setInterval(function() {
 					var newv = that.val();
 					if (newv != value) {
 						value = newv;
-						fn.call(that, newv);
+						f.call(that, newv);
 					}
 				}, time);
 			}
