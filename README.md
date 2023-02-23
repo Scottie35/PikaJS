@@ -183,7 +183,9 @@ To make any DOM element chainable, just pass it in to $():
 	
 #### .is
 
-	$('#container div').is('.thisclass')	->	Returns true if DIV has class "thisclass", false otherwise
+	$('#container div').is('.thisclass')
+	
+	Returns true if DIV has class "thisclass", false otherwise
 
 #### .on
 
