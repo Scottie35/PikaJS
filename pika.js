@@ -1,35 +1,56 @@
 /**
- * 	@license PikaJS v2.0.4
- * 	© 2022 Scott Ogrin - MIT License
- * 	Balalaika v1.0.1 - https://github.com/finom/balalaika - MIT License
+ * 	@license PikaJS v3.0.0
+ * 	© 2022-2023 Scott Ogrin - MIT License
  */
 
 var __$ = window.$;
 
-window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new h.i(t,e)},h.i=function(i,o){n.push.apply(this,i?i.nodeType||i==t?[i]:""+i===i?/</.test(i)?((u=e.createElement(o||"q")).innerHTML=i,u.children):(o&&h(o)[0]||e).querySelectorAll(i):/f/.test(typeof i)?/c/.test(e.readyState)?i():h(e).on("DOMContentLoaded",i):i:n)},h.i[l="prototype"]=(h.extend=function(t){for(f=arguments,u=1;u<f.length;u++)if(l=f[u])for(c in l)t[c]=l[c];return t})(h.fn=h[l]=n,{on:function(t,e){return t=t.split(i),this.map(function(n){(i[u=t[0]+(n.b$=n.b$||++o)]=i[u]||[]).push([e,t[1]]),n["add"+r](t[0],e)}),this},off:function(t,e){return t=t.split(i),l="remove"+r,this.map(function(n){if(f=i[t[0]+n.b$],u=f&&f.length)for(;c=f[--u];)e&&e!=c[0]||t[1]&&t[1]!=c[1]||(n[l](t[0],c[0]),f.splice(u,1));else!t[1]&&n[l](t[0],e)}),this},is:function(t){return u=this[0],(u.matches||u["webkit"+s]||u["moz"+s]||u["ms"+s]).call(u,t)}}),h}(window,document,[],/\.(.+)/,0,"EventListener","MatchesSelector");
+window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Pos, PrcDt, RtTyp, CntTyp, Hdrs, TmOt, Styl, Ln, RelT, pI, Me, Ml, Mv, Mt, fE, crEl, nT, iH, aC, iB, gAt, sAt, rAt, $){
 
-(function($, Doc, DocEl, OwnDoc, DefVw, PN, Pos, PrcDt, RtTyp, CntTyp, Hdrs, TmOt, Styl, Ln, RelT, pI, Me, Ml, Mv, Mt){
+	// Aaaaand begin:
+	$ = function(s, context) {
+		return new $.i(s, context);
+	}
+	
+	// Basic selector / content ready functionality
+	$.i = function(s, context) {
+		fn.push.apply(this, !s ? fn : s[nT] || s == window ? [s] : "" + s === s ? /</.test(s) ? ((i = Doc[crEl](context || 'q'))[iH] = s, i.children) : (context&&$(context)[0]||Doc).querySelectorAll(s) : /f/.test(typeof s) ? /c/.test(Doc.readyState) ? s() : $(Doc).on('DOMContentLoaded', s) : s);
+	}
+
+	// Allows extending $ / $.fn
+	$.i[l = 'prototype'] = ($.extend = function(obj) {
+		for(var i = 1, k = arguments; i < k.length; i++) {
+			if (l = k[i]) {
+				for (j in l) {
+					obj[j] = l[j];
+				}
+			}
+		}
+		return obj;
+	})($.fn = $[l] = fn, {
+		// $.fn = $.prototype = fn
+	});	
 
 	$.extend($, {
 
-		Version: '2.0.4',
+		Version: '3.0.0',
 		Bubble: false,
 		Ajax: {
-			url: null,
+			url: N,
 			type: 'GET',
-			data: null,
+			data: N,
 			processData: true,
-			responseType: null,
+			responseType: N,
 			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 			headers: {
 	      'X-Requested-With': 'XMLHttpRequest',
 	      'Accept': 'text/javascript, text/html, application/xml, text/xml, */*'
 			},
 			timeout: 0,
-			before: null,
-			done: null,
-			fail: null,
-			always: null
+			before: N,
+			done: N,
+			fail: N,
+			always: N
 		},
 
 		Js: {}, // JS: { ij3sdfs: {txt: ['js', 'js'], doc: [document, document]}, b8e64hr: {...} }
@@ -38,11 +59,11 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 	// fetch uses promises, which is nice. 
 	// BUT: fetch is experimental, cookieless by default, promise doesn't reject on error, 
 	// timeouts are not supported, aborting is complicated, and there is no progress tracking...
-	// In short, it ain't there yet.
+	// In short, those aren't the droids we're looking for.
 
 	// AJAX function
 		ajax: function(opts) {
-			var theurl = null, thedata = null, timeoutTimer = null, aD = $.Ajax;
+			var theurl = N, thedata = N, timeoutTimer = N, aD = $.Ajax, sRH = 'setRequestHeader';
 			if (!opts.url || !$.t(opts.url, 's')) {
 				return false;
 			} else {
@@ -51,7 +72,7 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 			(!opts.type) ? opts.type = aD.type :	opts.type = opts.type.toUpperCase();
 			opts.data = opts.data || aD.data;
 			opts[PrcDt] = opts[PrcDt] || aD[PrcDt];
-			opts[RtTyp] = opts[RtTyp] ||aD[RtTyp];
+			opts[RtTyp] = opts[RtTyp] || aD[RtTyp];
 			opts[CntTyp] = opts[CntTyp] || aD[CntTyp];
 			opts[Hdrs] = opts[Hdrs] || aD[Hdrs];
 			opts[TmOt] = opts[TmOt] || pI(aD[TmOt]);
@@ -69,35 +90,35 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 				opts[PrcDt] = false;
 				opts[CntTyp] = false;
 			} else if (opts[PrcDt]) {
-				if (thedata != null && !$.t(thedata, 's')) {
+				if (thedata != N && !$.t(thedata, 's')) {
 					thedata = $.toS(thedata);
 				}
 			}
 			// Do request
 			var xhr = new XMLHttpRequest();
 			// Add URL parms if needed
-			if (opts.type == 'GET' && thedata != null) {
+			if (opts.type == 'GET' && thedata != N && thedata != '') {
 				theurl = theurl + (/\?/.test(theurl) ? "&" : "?") + thedata;
 			}
 			// XMLHttpRequest.open(method, url, async=true, user, password)
 			xhr.open(opts.type, theurl);
 			// Set Content-Type
 			if (opts.type != 'GET' && opts[CntTyp] !== false) {
-				xhr.setRequestHeader('Content-Type', opts[CntTyp]);
+				xhr[sRH]('Content-Type', opts[CntTyp]);
 			}
 			// Set up other headers if present (this can override contentType!)
-			if (opts[Hdrs] !== null) {
+			if (opts[Hdrs] !== N) {
 				for (n in opts[Hdrs]) {
-					xhr.setRequestHeader(n, opts[Hdrs][n]);
+					xhr[sRH](n, opts[Hdrs][n]);
 				}
 			}
 			// Do .before() if necessary
 			if ($.t(opts.before, 'f')) { opts.before(); }
 			// Set up listeners
 			xhr.onreadystatechange = function() {
-				if (xhr.readyState === 4) {
+				if (xhr.readyState == 4) {
 					// These vars will be passed to our callback funcs below:
-					var response = null, responseType = null, status = xhr.status, statusText = xhr.statusText;
+					var response = N, responseType = N, status = xhr.status, statusText = xhr.statusText;
 					// Carry on
 					// status = 0 on xhr.abort(), so it will be an error
 					if (status >= 200 && status < 300 || status == 304) {
@@ -120,14 +141,14 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 							// Text/HTML/JavaScript return type
 							if (opts[RtTyp] == 'script') {
 								// The whole response is supposed to be pure JS, so extract it, execute it, and return nothing
-								var tmp = xhr.responseText, resp = null, id = $.R();
-								if (tmp.match(/^<script[^>]*>/) == null) {
+								var tmp = xhr.responseText, resp = N, id = $.R();
+								if (tmp.match(/^<script[^>]*>/) == N) {
 									tmp = ("<script>" + tmp + "</script>");
 								}
 								resp = $.H(tmp, id);
 								response = '';
-								tmp = null;
-								resp = null;
+								tmp = N;
+								resp = N;
 								$.execJS(id);
 							} else {
 								// This is some other text, like plain or HTML
@@ -160,7 +181,7 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 				}, opts[TmOt]);
 			}
 			// Send request
-			(opts.type == 'GET' || thedata == null) ? xhr.send() : xhr.send(thedata);
+			(opts.type == 'GET' || thedata == N) ? xhr.send() : xhr.send(thedata);
 		},
 
 		// Cumulative offset calc
@@ -179,12 +200,12 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 		// Builder called by $.toS for serializing object for AJAX call
 		doToS: function(prefix, obj, add) {
 			var name;
-			if ($.t(obj, 'a')) {
+			if (Array.isArray(obj)) {
 				for (var i=0, l=obj[Ln]; i<l; i++) {
 					if (/\[\]$/.test(prefix)) {
 						add(prefix, obj[i]);
 					} else {
-						$.doToS(prefix + "[" + ($.t(obj[i], 'o') && obj[i] != null ? i : "") + "]", obj[i], add);
+						$.doToS(prefix + "[" + ($.t(obj[i], 'o') && obj[i] != N ? i : "") + "]", obj[i], add);
 					}
 				}
 			} else if ($.t(obj, 'o')) {
@@ -211,7 +232,7 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 		// Get first descendant of el
 	  first: function(el) {
 	    el = el.firstChild;
-	    while (el && el.nodeType !== 1) {
+	    while (el && el[nT] !== 1) {
 	      el = el.nextSibling;
 	    }
 	    return el;
@@ -221,10 +242,10 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 	    if (!el) { return el; }
 	    expr = expr || 0, index = index || 0;
 	    if ($.t(expr, 'n')) {
-	      index = expr, expr = null;
+	      index = expr, expr = N;
 	    }
 	    while (el = el[prop]) {
-	      if (el.nodeType !== 1) { continue; }
+	      if (el[nT] !== 1) { continue; }
 	    	if (expr && !$(el).is(expr)) { continue; }
 	      if (--index >= 0) { continue; }
 	      return el;
@@ -234,7 +255,7 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 		getTags: function(content, tag) {
 			var ret, qS='querySelectorAll', tl='toLowerCase';
 			ret = (!$.t(content[qS])) ? content[qS](tag || "*") : [];
-			if (tag === undefined || tag && (content.nodeName && content.nodeName[tl]() === tag[tl]())) {
+			if (/^u/.test(typeof tag) || tag && (content.nodeName && content.nodeName[tl]() === tag[tl]())) {
 				return $.merge([content], ret);
 			}
 			return ret;
@@ -242,14 +263,9 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 
 		// This function converts text HTML into DOM nodes using createContextualFragment
 		H: function(html, id, innerHtml) {
-			var h = String(html), content = null, jstxt='', jsdoc, d = Doc, js;
-			if (h.match(/<[^>]+?>/mi) == null) {
-				// We have no HTML tags, so it's text only. Balalaika no likey!
-				content = d.createTextNode(h);
-			} else {
-				// Always do this instead of $(html), because Balalaika is too simple for complex nested HTML + JS
-				content = d.createRange().createContextualFragment(h);
-			}
+			var h = String(html), content = N, jstxt='', jsdoc, d = Doc, js;
+			// Be careful of nodes with no HTML!
+			content = (h.match(/<[^>]+?>/mi) == N) ? d.createTextNode(h) : d.createRange().createContextualFragment(h);
 			// At this point, content is some DOM nodes, so save any JS for execution, and remove the SCRIPT nodes
 			js = $.getTags(content, 'script');
 			if (js[Ln] > 0) {
@@ -266,19 +282,19 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 			}
 			// content is cleaned, so check for innerHTML=? usage and modify return content
 			if (!$.t(innerHtml)) {
-			  var div = d.createElement('div');
-			  div.appendChild(content);
-			  content = div.innerHTML;
-			  div = null;
+			  var div = d[crEl]('div');
+			  div[aC](content);
+			  content = div[iH];
+			  div = N;
 			}
 			return content;
 		},
 
 		JS: function(code, doc) {
-			doc = doc || D;
-			var js = doc.createElement("script");
+			doc = doc || Doc;
+			var js = doc[crEl]("script");
 			js.text = code;
-			doc.head.appendChild(js)[PN].removeChild(js);
+			doc.head[aC](js)[PN].removeChild(js);
 		},
 
 	  longHex: function(hex) {
@@ -313,13 +329,14 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 
 		// typeof checker
 		t: function(val, type) {
-			var t = {a: 'array', f: 'function', n: 'number', o: 'object', s: 'string'};
-			return type === undefined ? typeof val === 'undefined' : typeof val === t[type];
+			// Types: Undefined, Null*, Boolean, Number, BigInt, String, Symbol, Function, Object
+			var t = {b: /^bo/, n: /^n/, i: /bi/, s: /st/, y: /sy/, f: /^f/,  o: /^o/};
+			return /^u/.test(typeof type) ? /^u/.test(typeof val) : t[type].test(typeof val);
 		},
 
 		// Instead of Toggle.display(el)
 		T: function(el) {
-			$(el).forEach(function(e) {
+			$(el)[fE](function(e) {
 				e = $(e);
 				e.visible() ? e.hide() : e.show();
 			});
@@ -333,7 +350,7 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 				eu = encodeURIComponent,
 				add = function(key, valOrFunc) {
 					var val = $.t(valOrFunc, 'f') ? valOrFunc() : valOrFunc;
-					k[k[Ln]] = eu(key) + "=" + eu(val == null ? "" : val);
+					k[k[Ln]] = eu(key) + "=" + eu(val == N ? "" : val);
 				};
 			// Assume array of form elements as [{name: "a", value: "1"}, {...}, ...]
 			if (Array.isArray(a)) {
@@ -376,9 +393,9 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 		  now = now || false;
 		  return function debounced() {
 		    var obj = this, args = arguments;
-		    function delayed() {
+		    function delayed () {
 		      if (!now) { func.apply(obj, args); }
-		      timeout = null; 
+		      timeout = N; 
 		    }
 		    if (timeout) {
 		      clearTimeout(timeout);
@@ -394,11 +411,15 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 	$.extend($.fn, {
 		
 		// -- Selectors and DOM manipulation ---------------------
-		
+
+		is: function(expr) {
+			return this[0].matches(expr);
+		},
+	
 		select: function(expr) {
 			var els = [];
-			this.forEach(function(el) {
-				$(expr, el).forEach(function(e) {
+			this[fE](function(el) {
+				$(expr, el)[fE](function(e) {
 					els.push(e)
 				});
 			});
@@ -420,7 +441,7 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 		},
 
 		html: function(html) {
-		  return $.t(html) ? this[0].innerHTML : this.update(html);
+		  return $.t(html) ? this[0][iH] : this.update(html);
 		},
 
 		text: function(val) {
@@ -434,7 +455,7 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 
 		update: function(html) {
 			var id = $.R();
-		  this[0].innerHTML = $.H(html, id, 1);
+		  this[0][iH] = $.H(html, id, 1);
 		  $.execJS(id);
 		  return this;
 		},
@@ -451,9 +472,9 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 
 		append: function(el) {
 			var res;
-			if ([1, 11, 9].indexOf(this[0].nodeType) >= 0) {
+			if ([1, 11, 9].indexOf(this[0][nT]) >= 0) {
 		  	var ret = $.doEl(el);
-		  	res = this[0].appendChild(ret[0]);
+		  	res = this[0][aC](ret[0]);
 		  	if (ret[1]) $.execJS(ret[1]);
 		  }
 		  return !$.t(res) ? $(res) : this;	// Returns appended child
@@ -462,9 +483,9 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 		prepend: function(el) {
 			// This inserts as first CHILD element of el
 			var res;
-		  if ([1, 11, 9].indexOf(this[0].nodeType) >= 0) {
+		  if ([1, 11, 9].indexOf(this[0][nT]) >= 0) {
 		  	var ret = $.doEl(el);
-		  	res = this[0].insertBefore(ret[0], this[0].firstChild);
+		  	res = this[0][iB](ret[0], this[0].firstChild);
 		  	if (ret[1]) $.execJS(ret[1]);
 		  }
 		  return !$.t(res) ? $(res) : this;
@@ -474,7 +495,7 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 			var parent = this[0][PN], res;
 			if (parent) {
 				var ret = $.doEl(el);
-				res = parent.insertBefore(ret[0], this[0]);
+				res = parent[iB](ret[0], this[0]);
 				if (ret[1]) $.execJS(ret[1]);
 			}
 			return !$.t(res) ? $(res) : this;
@@ -484,7 +505,7 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 			var parent = this[0][PN], res;
 			if (parent) {
 				var ret = $.doEl(el);
-				res = parent.insertBefore(ret[0], this[0].nextSibling);
+				res = parent[iB](ret[0], this[0].nextSibling);
 				if (ret[1]) $.execJS(ret[1]);
 			}
 			return !$.t(res) ? $(res) : this;
@@ -524,8 +545,8 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 		},
 
 		// NOTE:
-		// 		$$(...)[0] => $(...).eq(0)  	=>		$(...).eq(0).hide()		<-- is "Balalaika object"
-		//		$$(...)[0]										=> 		$(...)[0].innerHTML		<-- is DOM node only
+		// 		$$(...)[0] => $(...).eq(0)  	=>		$(...).eq(0).hide()		<-- is Pika object
+		//		$$(...)[0]										=> 		$(...)[0][iH]		<-- is DOM node only
 		eq: function(index) {
 			if ($.t(index, 'n') && this[Ln] > index) {
 				if (index in this) {
@@ -537,7 +558,7 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 		children: function(expr) {
 			var els = [], kids = this[0].children;
 			if (!$.t(kids)) {
-				for (var i=0, l=kids.length; i<l; i++) {
+				for (var i=0, l=kids[Ln]; i<l; i++) {
 					if ($.t(expr) || $(kids[i]).is(expr)) {
 						els.push(kids[i]);
 					}
@@ -551,7 +572,7 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 	    if(this[0][PN]) {
 		    var el = this[0][PN].firstChild;
 		    while (el) {
-		      if (el.nodeType === 1 && this[0] !== el && (expr ? $(el).is(expr) : 1)) {
+		      if (el[nT] === 1 && this[0] !== el && (expr ? $(el).is(expr) : 1)) {
 		        els.push(el);
 		      }
 		      el = el.nextSibling;
@@ -565,14 +586,14 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 		  var id = $.R(), divId = 'pika-wrap-' + $.R();
 		  var content = $.H('<div id="' + divId + '">' + html + '</div>', id);
 		  // Insert html before el (this destroys content var)
-	  	this[0][PN].insertBefore(content, this[0]);
+	  	this[0][PN][iB](content, this[0]);
 		  // Get innermost elem of html
 			var el = $('div#' + divId)[0];
 			while (el.firstElementChild) {
 				el = el.firstElementChild;
 			}
 			// Put orig content back into wrap tags
-			el.appendChild(this[0]);
+			el[aC](this[0]);
 			// Remove temp DIV wrapper
 			el = $('div#' + divId)[0];
 			// This is the same as: elem.replaceWith(...elem.childNodes), but backwards compatible:
@@ -593,15 +614,15 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 
 		attr: function(key, val) {
 		  if (val || val == '') {
-		    this[0].setAttribute(key, val);
+		    this[0][sAt](key, val);
 		    return this;
 		  } else {
-		    return this[0].getAttribute(key);
+		    return this[0][gAt](key);
 		  }
 		},
 
 		removeAttr: function(name) {
-			this[0].removeAttribute(name);
+			this[0][rAt](name);
 			return this;
 		},
 
@@ -611,14 +632,14 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 		},
 
 		addClass: function(className) {
-		  this.forEach(function(el) {
+		  this[fE](function(el) {
 		    el.classList.add.apply(el.classList, className.split(/\s/));
 		  });
 		  return this;
 		},
 
 		removeClass: function(className) {
-		  this.forEach(function(el) {
+		  this[fE](function(el) {
 		    if ($.t(className)) {
 		      el.className = '';
 		    } else {
@@ -626,18 +647,19 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 		      cL.remove.apply(cL, className.split(/\s/));
 		    }
 		  });
+		  if (this[0].className == '') { this.removeAttr('class'); }
 		  return this;
 		},
 
 		toggleClass: function(className, addremove) {
 		  var cN = className.split(/\s/);
-		  this.forEach(function(el) {
+		  this[fE](function(el) {
 		    var cL = el.classList;
 		    for(var i=0, l=cN[Ln]; i<l; ++i) {
 		    	if ($.t(addremove)) {
 			    	cL.contains(cN[i]) ? cL.remove.apply(cL, [cN[i]]) : cL.add.apply(cL, [cN[i]]);
 		    	} else {
-		    		Boolean(addremove) ? cL.add.apply(cL, [cN[i]]) : cL.remove.apply(cL, [cN[i]]);
+		    		!!addremove ? cL.add.apply(cL, [cN[i]]) : cL.remove.apply(cL, [cN[i]]);
 		    	}
 		    }
 		  });
@@ -649,10 +671,10 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 		    this[0].value = val;
 		    return this;
 		  } else {
-		    if (this[0].nodeName == 'SELECT' && this[0].getAttribute('multiple') != null) {
+		    if (this[0].nodeName == 'SELECT' && this[0][gAt]('multiple') != N) {
 		    	var arr = [];
-		    	this.select('option').forEach(function(el) {
-		    		if (el.getAttribute('selected') != null) {
+		    	this.select('option')[fE](function(el) {
+		    		if (el[gAt]('selected') != N) {
 		    			arr.push(el.value);
 		    		}
 		    	});
@@ -666,11 +688,11 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 		// -- Formatting and styles ------------------------------
 
 		show: function(type) {
-		  this.forEach(function(el) {
+		  this[fE](function(el) {
 		  	// Inline check
 		  	if (el[Styl].display == 'none') {
-		  		el[Styl].display = null;
-		  		if ($(el).attr('style') == '') { el.removeAttribute('style'); }
+		  		el[Styl].display = N;
+		  		if ($(el).attr('style') == '') { el[rAt]('style'); }
 		  	} 
 		  	// Stylesheet check
 		  	if ($(el).css('display') == 'none') {
@@ -681,7 +703,7 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 		},
 
 		hide: function() {
-		  this.forEach(function(el) {
+		  this[fE](function(el) {
 		    el[Styl].display = 'none';
 		  });
 		  return this;
@@ -695,15 +717,15 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 			if ($.t(m, 's') && $.t(n)) {
 				// Get
 			  var val = this[0][Styl][m];
-			  if (!val || val === 'auto') {
-			    var css = Doc[DefVw].getComputedStyle(this[0], null);
-			    val = css ? css[m] : null;
+			  if (!val || val == 'auto') {
+			    var css = Doc[DefVw].getComputedStyle(this[0], N);
+			    val = css ? css[m] : N;
 			  }
-			  if (val == null) {return null;}
-			  if (m === 'opacity') return val ? parseFloat(val) : 1.0;
-			  if (val.match(/^rgb\(/) != null) return $.rgb2Hex(val);
-			  if (val.match(/^#\d{3}/) != null) return $.longHex(val);
-			  return val === 'auto' ? null : val;
+			  if (val == N) {return N;}
+			  if (m == 'opacity') return val ? parseFloat(val) : 1.0;
+			  if (val.match(/^rgb\(/) != N) return $.rgb2Hex(val);
+			  if (val.match(/^#\d{3}/) != N) return $.longHex(val);
+			  return val == 'auto' ? N : val;
 			} else {
 				// Set
 				var obj = {};
@@ -712,10 +734,10 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 				} else {
 					obj = m;
 				}
-			  this.forEach(function(el) {
+			  this[fE](function(el) {
 			    for (var key in obj) {
 			      var val = String(obj[key]);
-			      if (val.match(/^#\d{3}/) != null) { val = $.longHex(val); }
+			      if (val.match(/^#\d{3}/) != N) { val = $.longHex(val); }
 			      el[Styl][key] = val;
 			    }
 			  });
@@ -739,21 +761,21 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 
 		offsetParent: function() {
 			var parOff = this[0].offsetParent;
-			while (parOff && $(parOff).css("position") === "static") {
+			while (parOff && $(parOff).css("position") == "static") {
 				parOff = parOff.offsetParent;
 			}
-			return (parOff == null) ? $(Doc[DocEl]) : $(parOff);
+			return (parOff == N) ? $(Doc[DocEl]) : $(parOff);
 		},
 
 		position: function() {
 			// Position of el relative to OFFSET PARENT
 			var offPar, offset, parOff = {top: 0, left: 0};
-			if (this.css('position') === 'fixed') {
+			if (this.css('position') == 'fixed') {
 				offset = this[0].getBoundingClientRect();
 			} else {
 				offPar = this.offsetParent();
 				offset = this.offset();
-				if (offPar[0].nodeName !== 'html') {
+				if (offPar[0].nodeName != 'html') {
 					parOff = offPar.offset();
 				}
 				// Add offsetParent borders
@@ -806,19 +828,65 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 
 		// -- Event Observers ------------------------------------
 
+		on: function(event, fn) {
+			// Prevent attaching if el doesn't exist (so we can load all handlers on all pages if we want)
+			if ($.t(this[0])) { return; }
+			// event = [ eventName, nameSpace ]
+			// nsRegXnEvts is the regex, but we also use it to store event observer data for named event observers
+			event = event.split(nsRegXnEvts);
+			var i;
+			this.map(function(el) {
+				// el.pid$ is internal ID for an element
+				// i is eventName + id ("click75")
+				// nsRegXnEvts[i] is array of events (eg all click events for element#75) ([[handler, namespace], [handler, namespace]])
+				(nsRegXnEvts[i = event[0] + (el.pid$ = el.pid$ || ++Eid)] = nsRegXnEvts[i] || []).push([fn, event[1]]);
+				el.addEventListener(event[0], fn);
+			});
+			return this;
+		},
+
+		off: function(event, fn) {
+			// event = [ eventName, nameSpace ]
+			event = event.split(nsRegXnEvts);
+			// l = 'removeEventListener'
+			var rEL = 'removeEventListener';
+			this.map(function(el) {
+				// el.pid$ - internal id for an element
+				// n[0] + el.pid$ - eventName + id ("click75")
+				var i, j;
+				evts = nsRegXnEvts[n[0] + el.pid$];
+				// if array of events exist then i = length of array of events
+				if(i = evts && evts.length) {
+					// while j = one of array of events
+					while(j = evts[--i]) {
+						// if (no fn and no namespace || f but no namespace || no f but namespace || f and namespace)
+						if((!fn || fn == j[0]) && (!event[1] || event[1] == j[1])) {
+							// el.removeEventListener(eventName, handler);
+							el[rEL](event[0], j[0]);
+							// remove event from array of events
+							evts.splice(i, 1);
+						}
+					}
+				} else {
+					// If event added before using addEventListener, just remove it using el.removeEventListener(eventName, fn)
+					!event[1] && el[rEL](event[0], fn);
+				}	
+			});
+			return this;
+		},
+
 		// jQuery-like delegated event handler (this = parent where listener is attached)
 		// Note this cancels event bubble/default for you if $.Bubble == false - unless last param === false
 		_on: function(event, expr, fn, stopbubl) {
 			// Prevent attaching if el doesn't exist (so we can load all handlers on all pages if we want)
 			if ($.t(this[0])) { return; }
-			var special = false, evtonly = event.split('.')[0], evtname = event.split('.')[1];
+			var special = false, evtarr = event.split(nsRegXnEvts);
 			stopbubl = ($.t(stopbubl) ? (!$.Bubble) : stopbubl);
 			// Change mouseenter->mousover, mouseleave->mouseout (with special checks below)
-			if (evtonly == Me || evtonly == Ml) {
+			if (evtarr[0] == Me || evtarr[0] == Ml) {
 				special = true;
-				evtonly = (evtonly == Me) ? Mv : Mt;
+				event = ((evtarr[0] == Me) ? Mv : Mt) + ($.t(evtarr[1]) ? '' : '.' + evtarr[1]);
 			}
-			if (special) { event = evtonly + ($.t(evtname) ? '' : '.' + evtname); }
 			// Attach to PARENT, filter for child
 			this.on(event, function(evt) {
 				if (evt.target && $(evt.target).is(expr)) {
@@ -832,21 +900,23 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 					}
 				}
 			});
+			return this;
 		},
 
 		// Non-delegated event handler that removes itself after 1st event
 		// Note this cancels event bubble/default for you if $.Bubble == false - unless last param === false
+		// We don't use addEventListener with {once: true} becuz we want to do fancy stuff:
 		one: function(event, fn, stopbubl) {
 			// Prevent attaching if el doesn't exist (so we can load all handlers on all pages if we want)
 			if ($.t(this[0])) { return; }
-			var special = false, evtonly = event.split('.')[0], evtname = event.split('.')[1];
+			var special = false, evtarr = event.split(nsRegXnEvts);
 			stopbubl = ($.t(stopbubl) ? !$.Bubble : stopbubl);
 			// Change mouseenter->mousover, mouseleave->mouseout (with special checks below)
-			if (event == Me || event == Ml) {
+			if (evtarr[0] == Me || evtarr[0] == Ml) {
 				special = true;
-				event = (event == Me) ? Mv : Mt;
+//				evtarr[0] = (evtarr[0] == Me) ? Mv : Mt;
+				event = ((evtarr[0] == Me) ? Mv : Mt) + ($.t(evtarr[1]) ? '' : '.' + evtarr[1]);
 			}
-			if (special) { event = evtonly + ($.t(evtname) ? '' : '.' + evtname); }
 			var that = this;
 			this.on(event, function(evt) {
 				// See ._on() for an explanation of this lunacy!
@@ -857,6 +927,7 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 					that.off(event);
 				}
 			});
+			return this;
 		},
 
 		// Check value every (time) ms and call fn if changed
@@ -879,18 +950,18 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 		// Will serialize no matter what if FormData not supported (for a few mobile browsers)
 		formData: function(doFD) {
 		  var result = [], form = this[0], eu = encodeURIComponent, sl = Array.prototype.slice;
-		  if ($.t(form, 'o') && form.nodeName === 'FORM') {
+		  if ($.t(form, 'o') && form.nodeName == 'FORM') {
 			  if ((!$.t(doFD) && doFD == false) || !$.t(FormData, 'f')) {
 			    // Serialize it
-			    sl.call(form.elements).forEach(function(f) {
-			      if (f.name && !f.disabled && ['file', 'reset', 'submit', 'button'].indexOf(f.type) === -1) {
-			        if (f.type === 'select-multiple') {
-			          sl.call(f.options).forEach(function(option) {
+			    sl.call(form.elements)[fE](function(f) {
+			      if (f.name && !f.disabled && ['file', 'reset', 'submit', 'button'].indexOf(f.type) == -1) {
+			        if (f.type == 'select-multiple') {
+			          sl.call(f.options)[fE](function(option) {
 			            if (option.selected) {
 			            	result.push(eu(f.name) + '=' + eu(option.value));
 			            }
 			          });
-			        } else if ((['checkbox', 'radio'].indexOf(f.type) === -1) || f.checked) {
+			        } else if ((['checkbox', 'radio'].indexOf(f.type) == -1) || f.checked) {
 				      	result.push(eu(f.name) + '=' + eu(f.value));
 			      	}
 			      }
@@ -908,27 +979,23 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 
 		blank: function() {
 			var t, x = this[0];
-			if (x.tagName == 'SELECT') {
-				t = x.value;
-			} else {
-				t = x.value || x.innerHTML;
-			}
+			t = (x.tagName == 'SELECT') ?  x.value : (x.value || x[iH]);
 			return /^\s*$/.test(t);
 		},
 
 		data: function(key, val) {
 		  if (!$.t(val)) {
-		    this.forEach(function(item) {
-		      item.setAttribute('data-' + key, val);
+		    this[fE](function(item) {
+		      item[sAt]('data-' + key, val);
 		    });
 		    return this;
 		  } else {
-		    return this[0].getAttribute('data-' + key);
+		    return this[0][gAt]('data-' + key);
 		  }
 		},
 
 		removeData: function(name) {
-			this[0].removeAttribute('data-' + name);
+			this[0][rAt]('data-' + name);
 			return this;
 		},
 
@@ -960,7 +1027,9 @@ window.Pika=function(t,e,n,i,o,r,s,u,c,f,l,h){return h=function(t,e){return new 
 
 	});
 
-})(window.Pika, document, 'documentElement', 'ownerDocument', 'defaultView', 'parentNode', 'position', 'processData', 'returnType', 'contentType', 'headers', 'timeout', 'style', 'length', 'relatedTarget', parseInt, 'mouseenter', 'mouseleave', 'mouseover', 'mouseout');
+	return $;
+
+})(document, [], /\.(.+)/, 0, null, 'documentElement', 'ownerDocument', 'defaultView', 'parentNode', 'position', 'processData', 'returnType', 'contentType', 'headers', 'timeout', 'style', 'length', 'relatedTarget', parseInt, 'mouseenter', 'mouseleave', 'mouseover', 'mouseout', 'forEach', 'createElement', 'nodeType', 'innerHTML', 'appendChild', 'insertBefore', 'getAttribute', 'setAttribute', 'removeAttribute');
 
 Pika.noConflict = function() {
 	if (window.$ === Pika) { window.$ = __$; }
