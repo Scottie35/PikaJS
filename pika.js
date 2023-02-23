@@ -1,6 +1,6 @@
 /**
  * 	@license PikaJS v3.0.0
- * 	© 2022-2023 Scott Ogrin - MIT License
+ * 	© 2021-2023 Scott Ogrin - MIT License
  */
 
 var __$ = window.$;
@@ -851,7 +851,6 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 			var rEL = 'removeEventListener';
 			this.map(function(el) {
 				// el.pid$ - internal id for an element
-				// n[0] + el.pid$ - eventName + id ("click75")
 				var i, j;
 				evts = nsRegXnEvts[event[0] + el.pid$];
 				// if array of events exist then i = length of array of events
