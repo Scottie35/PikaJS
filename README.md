@@ -28,19 +28,9 @@ https://github.com/finom/balalaika
 
 *BOOYAH!* That's pretty sassy. Well done, sir.
 
-PikaJS is based on Balalaika, which itself is simply a very, very small "jQuery" that's only 986 bytes in size. When you look at its source code, first you weep. Then, after awhile, you realize that it's actually quite simple. It's just nicely optimized.
+PikaJS evolved from Balalaika, which itself is simply a very, very small "jQuery" that's only 986 bytes in size. When you look at its source code, first you weep. Then, after awhile, you realize that it's actually quite simple. It's just nicely optimized.
 
-Modern browsers (including IE10 and up - COUGH!) will work just fine with Balalaika. At this point, browsers have all the functions they need to do fancy jQuery-like stuff without all kinds of hacks. So, Balalaika simply leverages this built-in functionality in a nice, small, jQuery-like "wrapper".
-
-BUT, the only functions included in Balalaika are:
-
-    $(expr) -> selected elements
-    .is()
-    .on()
-    .off()
-    .extend()
-
-PikaJS therefore starts with Balalaika and builds all kinds of stuff on top of it. 
+At this point, browsers have all the functions they need to do fancy jQuery-like stuff without all kinds of hacks. So, PikaJS simply leverages this built-in functionality in a nice, small, jQuery-like "wrapper".
 
 For example, AJAX requests of all kinds should be easy to do without digging into XMLHttpRequest. Now, I realize that we're in a brave new world where everything is "Web 4.0 Push Notification Mobile Cloud Blockchain Fabulous™", but back here in the real world, we still need to send and receive data from a server with JavaScript from a simple web page. Yeah, THAT real world.
 
@@ -48,11 +38,11 @@ Anyhoo, the idea was to include the best of jQuery and the best of PrototypeJS (
 
 **PrototypeJS 1.7.3 + Script.aculo.us**  =  120 kB minified
 
-**jQuery 3.6.0**  =  87.4 KB
+**jQuery 3.6.0**  =  87.8 KB
 
-**PikaJS v2.0.4**  =  **13.0** KB
+**PikaJS v3.0.0**  =  **12.7** KB
 
-That's just minified, not gzipped. PikaJS is only **5.1KB** gzipped.
+That's just minified... PikaJS is only **5.0KB** gzipped!!
 
 ## Okay, but how compatible is PikaJS?
 
@@ -118,7 +108,7 @@ First, include the minifed **pika-min.js** in the head of your page.
 
 **Alternatively, you can call: var $ = Pika.noConflict(); (use whatever var you want instead of $ if necessary)**
 
-PikaJS v2.0 coexists peacefully with any other library you're using that may want to use window.$. That means you can even use jQuery and PikaJS at the same time!
+PikaJS v3.0 coexists peacefully with any other library you're using that may want to use window.$. That means you can even use jQuery and PikaJS at the same time!
 
 And then, get crackin':
 
@@ -130,7 +120,7 @@ And then, get crackin':
 
 ### Selectors
 
-	  $('body') ->  Object [ <body> ]
+    $('body') ->  Object [ <body> ]
     
     $('img.pic_class') ->  Object [ <img>, <img> ]
     
@@ -200,7 +190,7 @@ To make any DOM element chainable, just pass it in to $():
 	// Simple event listener
 
 	$('.my-selector').on('click.namespace', function() {
-		alert('I need my balalaika');
+		alert('I love pizza');
 	});
 
 	// Submit a form
@@ -247,7 +237,6 @@ So you can add/remove `<LI>` like crazy, and it will "just work". One listener i
 Four other important notes:
 
 1. The event bubble/propagation is stopped by `._on()` by default. You can override this default behavior by setting `$.Bubble = true;` in your code to make PikaJS work like jQuery.
-
 2. `._on()` checks to make sure that $('ul.mylist') exists first. If it doesn't, it does NOT attach a listener. This means you can use `._on()` to create a whole bunch of listeners in 1 JS file, and if that element doesn't exist on the page, nothing will break because nothing will happen.
 3. If you pass `false` as the 4th parameter (bubble), `._on()` will NOT prevent the event from bubbling. This is handy in certain situations.
 4. Mouseenter events are converted to Mouseover, and Mouseleave to Mouseout. This is to make such events work consistently since these events normally do not bubble. You can still override bubbling if you want!
@@ -861,11 +850,13 @@ Alias of .select
 	!$.t(obj, 's')	->  return typeof obj !== 'string';
 	
 	Second argument can be:
-		'a' = array
-		'f' = function
+		'b' = boolean
 		'n' = number
-		'o' = object
+		'i' = bigint
 		's' = string
+		'y' = symbol
+		'f' = function
+		'o' = object
 	
 	BE CAREFUL! Checking for undefined doesn't always work like you think depending on the variable scope and context...
 	
@@ -916,7 +907,7 @@ Alias of .select
 
 $ includes the following default values for PikaJS:
 
-	$.Version = '2.0.4'
+	$.Version = '3.0.0'
 	$.Ajax = {
 		url: null,
 		type: 'GET',
