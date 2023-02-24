@@ -11,15 +11,10 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 	$ = function(s, context) {
 		return new $.i(s, context);
 	}
-	
-	// Basic selector / content ready functionality
-	$.i = function(s, context) {
-		fn.push.apply(this, !s ? fn : s[nT] || s == window ? [s] : "" + s === s ? /</.test(s) ? ((i = Doc[crEl](context || 'q'))[iH] = s, i.children) : (context&&$(context)[0]||Doc).querySelectorAll(s) : /f/.test(typeof s) ? /c/.test(Doc.readyState) ? s() : $(Doc).on('DOMContentLoaded', s) : s);
-	}
 
-	// Allows extending $ / $.fn
-	$.i[l = 'prototype'] = ($.extend = function(obj) {
-		for(var i = 1, k = arguments; i < k.length; i++) {
+	// Allows extending obj
+	$.extend = function(obj) {
+		for(var i = 1, k = arguments; i < k[Ln]; i++) {
 			if (l = k[i]) {
 				for (j in l) {
 					obj[j] = l[j];
@@ -27,9 +22,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 			}
 		}
 		return obj;
-	})($.fn = $[l] = fn, {
-		// $.fn = $.prototype = fn
-	});	
+	}
 
 	$.extend($, {
 
@@ -408,9 +401,13 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 
 	});
 
-	$.extend($.fn, {
-		
-		// -- Selectors and DOM manipulation ---------------------
+	// Basic selector / content ready functionality
+	$.i = function(s, context) {
+		fn.push.apply(this, !s ? fn : s[nT] || s == window ? [s] : "" + s === s ? /</.test(s) ? ((i = Doc[crEl](context || 'q'))[iH] = s, i.children) : (context && $(context)[0] || Doc).querySelectorAll(s) : /f/.test(typeof s) ? /c/.test(Doc.readyState) ? s() : $(Doc).on('DOMContentLoaded', s) : s);
+	}
+
+	// -- Selectors and DOM manipulation ---------------------
+	$.i.prototype = $.extend($.fn = $.prototype = fn, {
 
 		is: function(expr) {
 			return this[0].matches(expr);
@@ -854,12 +851,11 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 				var i, j;
 				evts = nsRegXnEvts[event[0] + el.pid$];
 				// if array of events exist then i = length of array of events
-				if(i = evts && evts.length) {
+				if(i = evts && evts[Ln]) {
 					// while j = one of array of events
 					while(j = evts[--i]) {
 						// if (no f and no namespace || f but no namespace || no f but namespace || f and namespace)
 						if((!f || f == j[0]) && (!event[1] || event[1] == j[1])) {
-							// el.removeEventListener(eventName, handler);
 							el[rEL](event[0], j[0]);
 							// remove event from array of events
 							evts.splice(i, 1);
@@ -1022,7 +1018,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 		width: function() { return this.getWidth(); },
 		height: function() { return this.getHeight(); },
 
-	});
+	});	
 
 	return $;
 
