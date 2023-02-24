@@ -24,8 +24,6 @@ PHEW! Now that that's out of the way...
 
 I had been using jQuery and PrototypeJS, and I needed to ditch PrototypeJS at long last. My colleague said, "Hey! Check out this [Balalaika](https://github.com/finom/balalaika) thing!" So I did.
 
-https://github.com/finom/balalaika
-
 *BOOYAH!* That's pretty sassy. Well done, sir.
 
 PikaJS evolved from Balalaika, which itself is simply a very, very small "jQuery" that's only 986 bytes in size. When you look at its source code, first you weep. Then, after awhile, you realize that it's actually quite simple. It's just nicely optimized.
