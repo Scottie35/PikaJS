@@ -14,7 +14,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 
 	// Allows extending obj
 	$.extend = function(obj) {
-		for(var i = 1, k = arguments; i < k[Ln]; i++) {
+		for(var i = 1, k = arguments, l; i < k[Ln]; i++) {
 			if (l = k[i]) {
 				for (j in l) {
 					obj[j] = l[j];
