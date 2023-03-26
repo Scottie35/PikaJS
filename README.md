@@ -38,7 +38,7 @@ Anyhoo, the idea was to include the best of jQuery and the best of PrototypeJS (
 
 **jQuery 3.6.0**  =  87.8 KB
 
-**PikaJS v3.0.0**  =  **12.7** KB
+**PikaJS v3.1.0**  =  **12.7** KB
 
 That's just minified... PikaJS is only **5.0KB** gzipped!!
 
@@ -562,7 +562,7 @@ Alias of .select
 	$('div.some_class').contains(el);
 	$('div.some_class').contains($('div.your_class'));
 	
-	Does 'div.some_class' contain Pika selected el? Returns boolean
+	Does 'div.some_class' (one or more) contain Pika selected el? Returns boolean
 
 #### .attr
 
