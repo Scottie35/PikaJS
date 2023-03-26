@@ -1,5 +1,5 @@
 /**
- * 	@license PikaJS v3.0.0
+ * 	@license PikaJS v3.1.0
  * 	© 2021-2023 Scott Ogrin - MIT License
  */
 
@@ -26,7 +26,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 
 	$.extend($, {
 
-		Version: '3.0.0',
+		Version: '3.1.0',
 		Bubble: false,
 		Ajax: {
 			url: N,
@@ -606,7 +606,10 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 		},
 
 		contains: function(el) {
-			return this[0].contains($(el)[0]);
+			for (var i=0, l=this[Ln]; i<l; ++i) {
+				if ($(this[i])[0].contains($(el)[0])) { return true; }
+			}
+			return false;
 		},
 
 		attr: function(key, val) {
@@ -883,15 +886,14 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 			}
 			// Attach to PARENT, filter for child
 			this.on(event, function(evt) {
-				if (evt.target && $(evt.target).is(expr)) {
+				// Either we have normal event, or we need to override mouseenter/leave to make them more useful:
+				// We make mouseenter/leave into over/out AND and do some special checking
+				// This allows delegated mouseenter/leave listeners since normally, they don't bubble
+				// In short, we do NOT fire the event if we're dealing with entering or leaving a child element in some cases
+				var et = evt.target;
+				if (et && ($(et).is(expr) || $(expr).contains(et) || (special && (!evt[RelT] || (evt[RelT] !== $(expr)[0] && !$(expr).contains(evt[RelT])))))) {
 					if (stopbubl) { $.S(evt); }
-					if (!special || (!evt[RelT] || (evt[RelT] !== evt.target && !evt.target.contains(evt[RelT])))) {
-						// Either we have normal event, or we need to override mouseenter/leave to make them more useful:
-						// We make mouseenter/leave into over/out AND and do some special checking
-						// This allows delegated mouseenter/leave listeners since normally, they don't bubble
-						// In short, we do NOT fire the event if we're dealing with entering or leaving a child element in some cases
-						f.call($(evt.target), evt); // func will have evt, this = $()
-					}
+					f.call((special || $(et).is(expr)) ? $(et) : $(et).up(expr), evt); // func will have evt, this = $()
 				}
 			});
 			return this;
