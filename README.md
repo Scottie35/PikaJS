@@ -38,7 +38,7 @@ Anyhoo, the idea was to include the best of jQuery and the best of PrototypeJS (
 
 **jQuery 3.6.0**  =  87.8 KB
 
-**PikaJS v3.1.0**  =  **12.8** KB
+**PikaJS v3.2.0**  =  **12.8** KB
 
 That's just minified... PikaJS is only **5.0KB** gzipped!!
 
@@ -907,7 +907,7 @@ Alias of .select
 
 $ includes the following default values for PikaJS:
 
-	$.Version = '3.0.0'
+	$.Version = '3.2.0'
 	$.Ajax = {
 		url: null,
 		type: 'GET',
