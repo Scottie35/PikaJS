@@ -241,17 +241,19 @@ Four other important notes:
 3. If you pass `false` as the 4th parameter (bubble), `._on()` will NOT prevent the event from bubbling. This is handy in certain situations.
 4. Mouseenter events are converted to Mouseover, and Mouseleave to Mouseout. This is to make such events work consistently since these events normally do not bubble. You can still override bubbling if you want!
 
-Pay attention to certain gotchas, like the paste event. Let's say you want to do something to content pasted into a textarea. You'd have to do this:
+Pay attention to certain gotchas, like the `paste` event. Let's say you want to do something to content pasted into a textarea. You'd have to do this:
 
 	// Do myOnPasteFunction() when you paste something into textarea with ID=stuff:
 	$('div.container')._on('paste', 'textarea#stuff', function() {
-	  myOnPasteFunction();
+	  setTimeout(function() { myOnPasteFunction(); }, 1);
 	}, false);
 	
 	// If you don't pass `false` as the 4th param, `._on` cancels bubbling and stops event propagation
 	// That means the browser will never perform the actual paste operation!
 	// So your onPaste function won't do anything
 	// Most of the time, you don't want/need bubbling/propagation, but sometimes you do!!
+	// The `setTimeout` just puts `myOnPastefunction` at the end of the JS stack, so
+	// the function will be called AFTER the paste happens
 
 #### .one
 
