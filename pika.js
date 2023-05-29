@@ -1,5 +1,5 @@
 /**
- * 	@license PikaJS v3.1.0
+ * 	@license PikaJS v3.2.0
  * 	© 2021-2023 Scott Ogrin - MIT License
  */
 
@@ -26,7 +26,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 
 	$.extend($, {
 
-		Version: '3.1.0',
+		Version: '3.2.0',
 		Bubble: false,
 		Ajax: {
 			url: N,
@@ -879,7 +879,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 			if ($.t(this[0])) { return; }
 			var special = false, evtarr = event.split(nsRegXnEvts);
 			stopbubl = ($.t(stopbubl) ? (!$.Bubble) : stopbubl);
-			// Change mouseenter->mousover, mouseleave->mouseout (with special checks below)
+			// Change mouseenter->mouseover, mouseleave->mouseout (with special checks below)
 			if (evtarr[0] == Me || evtarr[0] == Ml) {
 				special = true;
 				event = ((evtarr[0] == Me) ? Mv : Mt) + ($.t(evtarr[1]) ? '' : '.' + evtarr[1]);
@@ -891,7 +891,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 				// This allows delegated mouseenter/leave listeners since normally, they don't bubble
 				// In short, we do NOT fire the event if we're dealing with entering or leaving a child element in some cases
 				var et = evt.target;
-				if (et && ($(et).is(expr) || $(expr).contains(et) || (special && (!evt[RelT] || (evt[RelT] !== $(expr)[0] && !$(expr).contains(evt[RelT])))))) {
+				if (et && ($(et).is(expr) || $(expr).contains(et)) && (!special || (special && (!evt[RelT] || (evt[RelT] !== et && !$(et).contains(evt[RelT])))))) {
 					if (stopbubl) { $.S(evt); }
 					f.call((special || $(et).is(expr)) ? $(et) : $(et).up(expr), evt); // func will have evt, this = $()
 				}
