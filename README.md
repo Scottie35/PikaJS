@@ -118,7 +118,7 @@ First, include the minifed **pika-min.js** in the head of your page.
 
 **Alternatively, you can call: var $ = Pika.noConflict(); (use whatever var you want instead of $ if necessary)**
 
-PikaJS v3.0 coexists peacefully with any other library you're using that may want to use window.$. That means you can even use jQuery and PikaJS at the same time!
+PikaJS v3 coexists peacefully with any other library you're using that may want to use window.$. That means you can even use jQuery and PikaJS at the same time!
 
 And then, get crackin':
 
