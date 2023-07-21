@@ -1,3 +1,5 @@
+<img src="https://pikajs.com/img/pika_250.png" title="PikaJS" alt="PikaJS" align="right">
+
 ## What is PikaJS?
 
 PikaJS is like jQuery or PrototypeJS, only smaller, lighter, and more efficient.
