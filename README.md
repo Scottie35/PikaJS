@@ -8,6 +8,16 @@ OR
 
 **[Try the PikaJS Demo!](https://pikajs.com/)**
 
+## But wait - There's more!
+
+PikaJS v3 also comes with 5 handy plugins to help you create new user experiences quickly:
+
+- **[Animate](https://github.com/Scottie35/PikaJS-Animate)** - animate darn near anything
+- **[Hotkeys](https://github.com/Scottie35/PikaJS-Hotkeys)** - bind any keystroke to any function
+- **[Sortable](https://github.com/Scottie35/PikaJS-Sortable)** - drag-n-drop sorting made easy
+- **[DatePicker](https://github.com/Scottie35/PikaJS-DatePicker)** - clean, simple, and uniform datepicker
+- **[MultiSelect](https://github.com/Scottie35/PikaJS-MultiSelect)** - powerful SELECT:multiple lists
+
 ## How do you say "Pika"?
 
 However you want.
