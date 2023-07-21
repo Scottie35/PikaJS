@@ -1,5 +1,5 @@
 /**
- * 	@license PikaJS v3.2.0
+ * 	@license PikaJS v3.2.1
  * 	© 2021-2023 Scott Ogrin - MIT License
  */
 
@@ -26,7 +26,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 
 	$.extend($, {
 
-		Version: '3.2.0',
+		Version: '3.2.1',
 		Bubble: false,
 		Ajax: {
 			url: N,
@@ -386,7 +386,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 		  now = now || false;
 		  return function debounced() {
 		    var obj = this, args = arguments;
-		    function delayed () {
+		    function delayed() {
 		      if (!now) { func.apply(obj, args); }
 		      timeout = N; 
 		    }
@@ -724,7 +724,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 			  if (val == N) {return N;}
 			  if (m == 'opacity') return val ? parseFloat(val) : 1.0;
 			  if (val.match(/^rgb\(/) != N) return $.rgb2Hex(val);
-			  if (val.match(/^#\d{3}/) != N) return $.longHex(val);
+			  if (val.match(/^#\d{3}$/) != N) return $.longHex(val);
 			  return val == 'auto' ? N : val;
 			} else {
 				// Set
@@ -737,7 +737,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 			  this[fE](function(el) {
 			    for (var key in obj) {
 			      var val = String(obj[key]);
-			      if (val.match(/^#\d{3}/) != N) { val = $.longHex(val); }
+			      if (val.match(/^#\d{3}$/) != N) { val = $.longHex(val); }
 			      el[Styl][key] = val;
 			    }
 			  });
