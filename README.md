@@ -8,7 +8,7 @@ PikaJS is like jQuery or PrototypeJS, only smaller, lighter, and more efficient.
 
 OR
 
-**[Try the PikaJS Demo!](https://pikajs.com/)**
+⇒ **[Try the PikaJS Demo!](https://pikajs.com/)**
 
 ## But wait - There's more!
 
