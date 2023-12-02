@@ -934,9 +934,7 @@ Alias of .select
 	$(window).on('resize', $.debounce(
  	  function() {
  	    MyFunction(stuff);
-    	    if (something) {
-              OtherStuff();
-	    }
+    	    if (something) { OtherStuff(); }
  	  }, 50, false)
   	);
 
