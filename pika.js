@@ -1,11 +1,11 @@
 /**
- * 	@license PikaJS v3.2.1
+ * 	@license PikaJS v3.2.2
  * 	© 2021-2023 Scott Ogrin - MIT License
  */
 
 var __$ = window.$;
 
-window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Pos, PrcDt, RtTyp, CntTyp, Hdrs, TmOt, Styl, Ln, RelT, pI, Me, Ml, Mv, Mt, fE, crEl, nT, iH, aC, iB, gAt, sAt, rAt, $){
+window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Pos, PrcDt, RtTyp, CntTyp, Hdrs, TmOt, Styl, Ln, RelT, pI, Me, Ml, Mv, Mt, fE, crEl, nT, iH, aC, iB, gAt, sAt, rAt, sT){
 
 	// Aaaaand begin:
 	$ = function(s, context) {
@@ -26,7 +26,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 
 	$.extend($, {
 
-		Version: '3.2.1',
+		Version: '3.2.2',
 		Bubble: false,
 		Ajax: {
 			url: N,
@@ -161,13 +161,13 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 					}
 					// Always run, with delay
 					if ($.t(opts.always, 'f')) {
-						setTimeout(function() { opts.always(response, responseType, status, statusText); }, 1);
+						sT(function() { opts.always(response, responseType, status, statusText); }, 1);
 					}
 				}
 			}
 			// Set up timeout. Default: let browser handle it
 			if (opts[TmOt] > 0 ) {
-				timeoutTimer = setTimeout(function() {
+				timeoutTimer = sT(function() {
 					// This aborts already sent request
 					xhr.abort();
 					// readyState = 4, status = 0, so opts.fail() will be run
@@ -395,7 +395,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 		    } else if (now) {
 		      func.apply(obj, args);
 		    }
-		    timeout = setTimeout(delayed, delay); 
+		    timeout = sT(delayed, delay); 
 		  }
 		}
 
@@ -1024,7 +1024,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 
 	return $;
 
-})(document, [], /\.(.+)/, 0, null, 'documentElement', 'ownerDocument', 'defaultView', 'parentNode', 'position', 'processData', 'returnType', 'contentType', 'headers', 'timeout', 'style', 'length', 'relatedTarget', parseInt, 'mouseenter', 'mouseleave', 'mouseover', 'mouseout', 'forEach', 'createElement', 'nodeType', 'innerHTML', 'appendChild', 'insertBefore', 'getAttribute', 'setAttribute', 'removeAttribute');
+})(document, [], /\.(.+)/, 0, null, 'documentElement', 'ownerDocument', 'defaultView', 'parentNode', 'position', 'processData', 'returnType', 'contentType', 'headers', 'timeout', 'style', 'length', 'relatedTarget', parseInt, 'mouseenter', 'mouseleave', 'mouseover', 'mouseout', 'forEach', 'createElement', 'nodeType', 'innerHTML', 'appendChild', 'insertBefore', 'getAttribute', 'setAttribute', 'removeAttribute', setTimeout);
 
 Pika.noConflict = function() {
 	if (window.$ === Pika) { window.$ = __$; }
