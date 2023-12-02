@@ -929,6 +929,19 @@ Alias of .select
 	$.debounce is merely a wrapper around your `func`, so you can pass arguments including `event`
 	just like in a normal `.on` event handler.
 
+	Note that if you want to do multiple things in your debounce function, you should do this:
+ 
+	$(window).on('resize', $.debounce(
+ 	  function() {
+ 	    MyFunction(stuff);
+    	    if (something) {
+              OtherStuff();
+	    }
+ 	  }, 50, false)
+  	);
+
+	The key here is that the event listener callback MUST be $.debounce(fn); otherwise it won't work.
+
 ### Finally, miscellaneous variables and methods
 
 $ includes the following default values for PikaJS:
