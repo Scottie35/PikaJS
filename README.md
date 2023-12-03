@@ -929,7 +929,8 @@ Alias of .select
 	$.debounce is merely a wrapper around your `func`, so you can pass arguments including `event`
 	just like in a normal `.on` event handler.
 
-	Note that if you want to do multiple things in your debounce function, you should do this:
+	Note that if you want to do multiple things in your debounce function, or if you want to pass
+ 	in a callback function with arguments, you should do this:
  
 	$(window).on('resize', $.debounce(
  	  function() {
