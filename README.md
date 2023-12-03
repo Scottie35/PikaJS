@@ -50,9 +50,9 @@ Anyhoo, the idea was to include the best of jQuery and the best of PrototypeJS (
 
 **jQuery 3.7.1**  =  85.4 KB
 
-**PikaJS v3.2.2**  =  **12.7** KB
+**PikaJS v3.2.3**  =  **12.6** KB
 
-That's just minified... PikaJS is only **5.06 KB** gzipped!!
+That's just minified... PikaJS is only **5.0 KB** gzipped!!
 
 ## Okay, but how compatible is PikaJS?
 
@@ -279,12 +279,16 @@ Pay attention to certain gotchas, like the `paste` event. Let's say you want to 
 	// This works with both `.on()` and `._on()` - just be sure to add the same namespace to each event name
 	$('.my-selector').off('click.namespace');
 
-#### .onChange
+#### ~~.onChange~~
 
-	$('input#search').onChange(700, function() {
-		// Check every 700ms to see if the value of the input element has changed
-		// If it has changed, do something here, like AJAX call to search form
-	});
+	** .onChange HAS BEEN REMOVED in v3.2.3. INSTEAD, DO THIS: **
+
+  	$('input#search').on('input', $.debounce(
+   		function() {
+			// If the value of the input element has changed and been constant for
+			// 500ms, do something here, like AJAX call to search form
+   		}, 500, false);
+	);
 
 #### .ajax
 
