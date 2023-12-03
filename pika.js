@@ -1,5 +1,5 @@
 /**
- * 	@license PikaJS v3.2.2
+ * 	@license PikaJS v3.2.3
  * 	© 2021-2023 Scott Ogrin - MIT License
  */
 
@@ -26,7 +26,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 
 	$.extend($, {
 
-		Version: '3.2.2',
+		Version: '3.2.3',
 		Bubble: false,
 		Ajax: {
 			url: N,
@@ -388,7 +388,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 		    var obj = this, args = arguments;
 		    function delayed() {
 		      if (!now) { func.apply(obj, args); }
-		      timeout = N; 
+		      timeout = N;
 		    }
 		    if (timeout) {
 		      clearTimeout(timeout);
@@ -923,20 +923,6 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 				}
 			});
 			return this;
-		},
-
-		// Check value every (time) ms and call f if changed
-		onChange: function(time, f) {
-			if (!$.t(this[0])) {
-				var that = this, value = this.val();
-				setInterval(function() {
-					var newv = that.val();
-					if (newv != value) {
-						value = newv;
-						f.call(that, newv);
-					}
-				}, time);
-			}
 		},
 
 		// -- Ajax Stuff -----------------------------------------
