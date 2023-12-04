@@ -937,7 +937,8 @@ Alias of .select
  	in a callback function with arguments, you should do this:
  
 	$(window).on('resize', $.debounce(
- 	  function() {
+ 	  function(event) {
+ 	    // event = resize Event data
  	    MyFunction(stuff);
  	    if (something) { OtherStuff(); }
  	  }, 50, false)
