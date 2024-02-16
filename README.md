@@ -287,7 +287,7 @@ Pay attention to certain gotchas, like the `paste` event. Let's say you want to 
    		function() {
 			// If the value of the input element has changed and been constant for
 			// 500ms, do something here, like AJAX call to search form
-   		}, 500, false);
+   		}, 500, false)
 	);
 
 #### .ajax
