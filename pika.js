@@ -994,16 +994,18 @@ window.Pika=(function(Doc, fn, RgxEv, Eid, N, T, F, G, M, A, P, V, S, R, SC, Doc
 		blur: function() {
 		  this[0].blur();
 		  return this;
-		},
-
-		// -- Aliases --------------------------------------
-
-		find: function(expr) { return this.select(expr); },
-		dimensions: function() { return this.getDimensions(); },
-		width: function() { return this.getWidth(); },
-		height: function() { return this.getHeight(); },
+		}
 
 	});	
+
+	// -- Aliases --------------------------------------
+
+	$.extend($.fn, {
+		find: $.fn.select,
+		dimensions: $.fn.getDimensions,
+		width: $.fn.getWidth,
+		height: $.fn.getHeight
+	});
 
 	return $;
 
