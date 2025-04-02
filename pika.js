@@ -1,11 +1,11 @@
 /**
- * 	@license PikaJS v3.2.3
- * 	© 2021-2023 Scott Ogrin - MIT License
+ * 	@license PikaJS v3.2.4
+ * 	© 2021-2025 Scott Ogrin - MIT License
  */
 
 var __$ = window.$;
 
-window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Pos, PrcDt, RtTyp, CntTyp, Hdrs, TmOt, Styl, Ln, RelT, pI, Me, Ml, Mv, Mt, fE, crEl, nT, iH, aC, iB, gAt, sAt, rAt, sT){
+window.Pika=(function(Doc, fn, RgxEv, Eid, N, T, F, G, M, A, P, V, S, R, SC, DocEl, OwnDoc, DefVw, PN, Pos, PrcDt, RtTyp, CntTyp, Hdrs, TmOt, SY, DY, Ln, RelT, pI, Me, Ml, Mv, Mt, fE, crEl, nT, iH, aC, iB, gAt, sAt, rAt, ofP, gBCR, nN, rC, fC, nS, qSA, cL, cN, sT, cT){
 
 	// Aaaaand begin:
 	$ = function(s, context) {
@@ -26,13 +26,13 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 
 	$.extend($, {
 
-		Version: '3.2.3',
-		Bubble: false,
+		Version: '3.2.4',
+		Bubble: F,
 		Ajax: {
 			url: N,
-			type: 'GET',
+			type: G,
 			data: N,
-			processData: true,
+			processData: T,
 			responseType: N,
 			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 			headers: {
@@ -58,30 +58,30 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 		ajax: function(opts) {
 			var theurl = N, thedata = N, timeoutTimer = N, aD = $.Ajax, sRH = 'setRequestHeader';
 			if (!opts.url || !$.t(opts.url, 's')) {
-				return false;
+				return F;
 			} else {
 				theurl = opts.url;
 			}
-			(!opts.type) ? opts.type = aD.type :	opts.type = opts.type.toUpperCase();
-			opts.data = opts.data || aD.data;
-			opts[PrcDt] = opts[PrcDt] || aD[PrcDt];
-			opts[RtTyp] = opts[RtTyp] || aD[RtTyp];
-			opts[CntTyp] = opts[CntTyp] || aD[CntTyp];
-			opts[Hdrs] = opts[Hdrs] || aD[Hdrs];
-			opts[TmOt] = opts[TmOt] || pI(aD[TmOt]);
+			opts.type = (!opts.type) ? aD.type : opts.type.toUpperCase();
+			opts.data ??= aD.data;
+			opts[PrcDt] ??= aD[PrcDt];
+			opts[RtTyp] ??= aD[RtTyp];
+			opts[CntTyp] ??= aD[CntTyp];
+			opts[Hdrs] ??= aD[Hdrs];
+			opts[TmOt] ??= pI(aD[TmOt]);
 			thedata = opts.data;
 			// Check type/data, change options
 			//		1. GET with data must always be serialized! No FormData.
 			// 		2. $(form).formData() 	==> FormData
 			//		3. $(form).formData(0) 	==> Serialized with formData()
 			//		4. {...} or whatever		==> Serialize with $.toS()
-			if (opts.type == 'GET') {
-				opts[PrcDt] = true;
-				opts[CntTyp] = false;
+			if (opts.type == G) {
+				opts[PrcDt] = T;
+				opts[CntTyp] = F;
 			}
-			if (thedata instanceof FormData && opts.type != 'GET') {
-				opts[PrcDt] = false;
-				opts[CntTyp] = false;
+			if (thedata instanceof FormData && opts.type != G) {
+				opts[PrcDt] = F;
+				opts[CntTyp] = F;
 			} else if (opts[PrcDt]) {
 				if (thedata != N && !$.t(thedata, 's')) {
 					thedata = $.toS(thedata);
@@ -90,13 +90,13 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 			// Do request
 			var xhr = new XMLHttpRequest();
 			// Add URL parms if needed
-			if (opts.type == 'GET' && thedata != N && thedata != '') {
+			if (opts.type == G && thedata != N && thedata != '') {
 				theurl = theurl + (/\?/.test(theurl) ? "&" : "?") + thedata;
 			}
 			// XMLHttpRequest.open(method, url, async=true, user, password)
 			xhr.open(opts.type, theurl);
 			// Set Content-Type
-			if (opts.type != 'GET' && opts[CntTyp] !== false) {
+			if (opts.type != G && opts[CntTyp] !== F) {
 				xhr[sRH]('Content-Type', opts[CntTyp]);
 			}
 			// Set up other headers if present (this can override contentType!)
@@ -111,19 +111,19 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 			xhr.onreadystatechange = function() {
 				if (xhr.readyState == 4) {
 					// These vars will be passed to our callback funcs below:
-					var response = N, responseType = N, status = xhr.status, statusText = xhr.statusText;
+					var response = N, responseType = N, status = xhr.status, statusText = xhr.statusText, resTxt = 'responseText';
 					// Carry on
 					// status = 0 on xhr.abort(), so it will be an error
 					if (status >= 200 && status < 300 || status == 304) {
 						// SUCCESS
 						// Clear timer if set
 						if (timeoutTimer) {
-							clearTimeout(timeoutTimer);
+							cT(timeoutTimer);
 						}
 						// This might not work, so we default it to "text":
-						responseType = xhr.responseType || "text";
+						responseType = xhr.responseType || 'text';
 						// For XHR2 non-text, just pass it thru to callback
-						if (responseType !== "text" || !$.t(xhr.responseText, 's')) {
+						if (responseType !== 'text' || !$.t(xhr[resTxt], 's')) {
 							// Binary return type, which includes:
 							//		- arrayBuffer
 							//		- blob
@@ -132,10 +132,10 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 							response = xhr.response;
 						} else {
 							// Text/HTML/JavaScript return type
-							if (opts[RtTyp] == 'script') {
+							if (opts[RtTyp] == SC) {
 								// The whole response is supposed to be pure JS, so extract it, execute it, and return nothing
-								var tmp = xhr.responseText, resp = N, id = $.R();
-								if (tmp.match(/^<script[^>]*>/) == N) {
+								var tmp = xhr[resTxt], resp = N, id = $.R();
+								if (tmp[M](/^<script[^>]*>/) == N) {
 									tmp = ("<script>" + tmp + "</script>");
 								}
 								resp = $.H(tmp, id);
@@ -146,7 +146,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 							} else {
 								// This is some other text, like plain or HTML
 								// NOTE: included JS is ONLY exec'd on insert into DOM!
-								response = xhr.responseText;
+								response = xhr[resTxt];
 							}
 						}
 						if ($.t(opts.done, 'f')) {
@@ -174,7 +174,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 				}, opts[TmOt]);
 			}
 			// Send request
-			(opts.type == 'GET' || thedata == N) ? xhr.send() : xhr.send(thedata);
+			(opts.type == G || thedata == N) ? xhr.send() : xhr.send(thedata);
 		},
 
 		// Cumulative offset calc
@@ -184,7 +184,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 	      do {
 	        t += el.offsetTop  || 0;
 	        l += el.offsetLeft || 0;
-	        el = el.offsetParent;
+	        el = el[ofP];
 	      } while (el);
 	    }
 	    return {top: t, left: l, x: l, y: t};
@@ -224,31 +224,29 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 
 		// Get first descendant of el
 	  first: function(el) {
-	    el = el.firstChild;
+	    el = el[fC];
 	    while (el && el[nT] !== 1) {
-	      el = el.nextSibling;
+	      el = el[nS];
 	    }
 	    return el;
 	  },
 
 	  findR: function(el, prop, expr, index) {
 	    if (!el) { return el; }
-	    expr = expr || 0, index = index || 0;
+	    expr ??= 0, index ??= 0;
 	    if ($.t(expr, 'n')) {
 	      index = expr, expr = N;
 	    }
 	    while (el = el[prop]) {
-	      if (el[nT] !== 1) { continue; }
-	    	if (expr && !$(el).is(expr)) { continue; }
-	      if (--index >= 0) { continue; }
+	      if ((el[nT] !== 1) || (expr && !$(el).is(expr)) || (--index >= 0)) { continue; }
 	      return el;
 	    }
 	  },
 
 		getTags: function(content, tag) {
-			var ret, qS='querySelectorAll', tl='toLowerCase';
-			ret = (!$.t(content[qS])) ? content[qS](tag || "*") : [];
-			if (/^u/.test(typeof tag) || tag && (content.nodeName && content.nodeName[tl]() === tag[tl]())) {
+			var ret, tl='toLowerCase';
+			ret = (!$.t(content[qSA])) ? content[qSA](tag || "*") : [];
+			if (/^u/.test(typeof tag) || tag && (content[nN] && content[nN][tl]() === tag[tl]())) {
 				return $.merge([content], ret);
 			}
 			return ret;
@@ -256,19 +254,19 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 
 		// This function converts text HTML into DOM nodes using createContextualFragment
 		H: function(html, id, innerHtml) {
-			var h = String(html), content = N, jstxt='', jsdoc, d = Doc, js;
+			var h = String(html), content = N, jstxt='', jsdoc, d = Doc, js, txtCon = 'textContent';
 			// Be careful of nodes with no HTML!
-			content = (h.match(/<[^>]+?>/mi) == N) ? d.createTextNode(h) : d.createRange().createContextualFragment(h);
+			content = (h[M](/<[^>]+?>/mi) == N) ? d.createTextNode(h) : d.createRange().createContextualFragment(h);
 			// At this point, content is some DOM nodes, so save any JS for execution, and remove the SCRIPT nodes
-			js = $.getTags(content, 'script');
+			js = $.getTags(content, SC);
 			if (js[Ln] > 0) {
 				$.Js[id] = {txt: [], doc: []};
 				for (var i=0, l=js[Ln]; i<l; i++) {
-					if (js[i].textContent) {
-						$.Js[id].txt.push(js[i].textContent);
-						$.Js[id].doc.push(js[i][OwnDoc]);
+					if (js[i][txtCon]) {
+						$.Js[id].txt[P](js[i][txtCon]);
+						$.Js[id].doc[P](js[i][OwnDoc]);
 						if (js[i][PN]) {
-							js[i][PN].removeChild(js[i]);
+							js[i][PN][rC](js[i]);
 						}
 					}
 				}
@@ -284,14 +282,14 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 		},
 
 		JS: function(code, doc) {
-			doc = doc || Doc;
-			var js = doc[crEl]("script");
+			doc ??= Doc;
+			var js = doc[crEl](SC);
 			js.text = code;
-			doc.head[aC](js)[PN].removeChild(js);
+			doc.head[aC](js)[PN][rC](js);
 		},
 
 	  longHex: function(hex) {
-	  	return "#"+(hex.match(/[^#]/g).map(function(char){ return char + char; })).join('');
+	  	return "#" + (hex[M](/[^#]/g).map(function(char){ return char + char; })).join('');
 	  },
 
 		merge: function(first, second) {
@@ -304,7 +302,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 		},
 
 	  rgb2Hex: function(rgb) {
-	  	return "#"+(rgb.match(/\b(\d+)\b/g).map(function(digit){ return ('0' + pI(digit).toString(16)).slice(-2) })).join('');
+	  	return "#" + (rgb[M](/\b(\d+)\b/g).map(function(digit){ return ('0' + pI(digit).toString(16)).slice(-2) })).join('');
 	  },
 
 		R: function() {
@@ -315,7 +313,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 
 		// Instead of Event.stop(evt) or evt.stop()
 		S: function(evt) {
-			evt = evt || window.event;
+			evt ??= window.event;
 			evt.preventDefault();
 		  evt.stopPropagation();
 		},
@@ -348,7 +346,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 			// Assume array of form elements as [{name: "a", value: "1"}, {...}, ...]
 			if (Array.isArray(a)) {
 				for (var i=0, l=a[Ln]; i<l; i++) {
-					add(a[i].name, a[i].value);
+					add(a[i].name, a[i][V]);
 				}
 			} else {
 				for (prefix in a) {
@@ -364,13 +362,13 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 			for (var i=0, l=keys[Ln]; i<l; ++i) {
 				// func will be passed name, props, with this = obj
 				// If func returns false, loop is aborted
-				if (f.call(obj, keys[i], obj[keys[i]]) === false) { break; }
+				if (f.call(obj, keys[i], obj[keys[i]]) === F) { break; }
 			}
 		},
 
 		// Process el as either HTML String OR PikaJS selector obj
 		doEl: function(el) {
-			var cont, id = false;
+			var cont, id = F;
 			if ($.t(el, 'o') && el[Ln] > 0 && (el[0] instanceof Element)) {
 				cont = el[0];
 			} else {
@@ -382,20 +380,19 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 
 		debounce: function(func, delay, now) {
 		  var timeout;
-		  delay = delay || 100;
-		  now = now || false;
-		  return function debounced() {
+		  now ??= F;
+		  return function() {
 		    var obj = this, args = arguments;
 		    function delayed() {
-		      if (!now) { func.apply(obj, args); }
+		      if (!now) { func[A](obj, args); }
 		      timeout = N;
 		    }
 		    if (timeout) {
-		      clearTimeout(timeout);
+		      cT(timeout);
 		    } else if (now) {
-		      func.apply(obj, args);
+		      func[A](obj, args);
 		    }
-		    timeout = sT(delayed, delay); 
+		    timeout = sT(delayed, delay || 100); 
 		  }
 		}
 
@@ -403,7 +400,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 
 	// Basic selector / content ready functionality
 	$.i = function(s, context) {
-		fn.push.apply(this, !s ? fn : s[nT] || s == window ? [s] : "" + s === s ? /</.test(s) ? ((i = Doc[crEl](context || 'q'))[iH] = s, i.children) : (context && $(context)[0] || Doc).querySelectorAll(s) : /f/.test(typeof s) ? /c/.test(Doc.readyState) ? s() : $(Doc).on('DOMContentLoaded', s) : s);
+		fn[P][A](this, !s ? fn : s[nT] || s == window ? [s] : "" + s === s ? /</.test(s) ? ((i = Doc[crEl](context || 'q'))[iH] = s, i.children) : (context && $(context)[0] || Doc)[qSA](s) : /f/.test(typeof s) ? /c/.test(Doc.readyState) ? s() : $(Doc).on('DOMContentLoaded', s) : s);
 	}
 
 	// -- Selectors and DOM manipulation ---------------------
@@ -417,7 +414,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 			var els = [];
 			this[fE](function(el) {
 				$(expr, el)[fE](function(e) {
-					els.push(e)
+					els[P](e)
 				});
 			});
 			return $(els);
@@ -432,7 +429,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 		  var parent = this[0][PN];
 		  if (parent) {
 		  	var ret=this[0].outerHTML;
-		    parent.removeChild(this[0]);
+		    parent[rC](this[0]);
 		    return ret; // returns removed content
 		  }
 		},
@@ -482,7 +479,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 			var res;
 		  if ([1, 11, 9].indexOf(this[0][nT]) >= 0) {
 		  	var ret = $.doEl(el);
-		  	res = this[0][iB](ret[0], this[0].firstChild);
+		  	res = this[0][iB](ret[0], this[0][fC]);
 		  	if (ret[1]) $.execJS(ret[1]);
 		  }
 		  return !$.t(res) ? $(res) : this;
@@ -502,7 +499,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 			var parent = this[0][PN], res;
 			if (parent) {
 				var ret = $.doEl(el);
-				res = parent[iB](ret[0], this[0].nextSibling);
+				res = parent[iB](ret[0], this[0][nS]);
 				if (ret[1]) $.execJS(ret[1]);
 			}
 			return !$.t(res) ? $(res) : this;
@@ -516,7 +513,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 		  if (arguments[Ln] === 0) {
 		  	return $($.first(this[0]));
 		  }
-		  expr = expr || 0, index = index || 0;
+		  expr ??= 0, index ??= 0;
 		  if ($.t(expr, 'n')) {
 		    index = expr, expr = '*';
 		  }
@@ -557,7 +554,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 			if (!$.t(kids)) {
 				for (var i=0, l=kids[Ln]; i<l; i++) {
 					if ($.t(expr) || $(kids[i]).is(expr)) {
-						els.push(kids[i]);
+						els[P](kids[i]);
 					}
 				}
 			}
@@ -567,12 +564,12 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 		siblings: function(expr) {
 	    var els = [];
 	    if(this[0][PN]) {
-		    var el = this[0][PN].firstChild;
+		    var el = this[0][PN][fC];
 		    while (el) {
 		      if (el[nT] === 1 && this[0] !== el && (expr ? $(el).is(expr) : 1)) {
-		        els.push(el);
+		        els[P](el);
 		      }
-		      el = el.nextSibling;
+		      el = el[nS];
 		    }
 	    }
 	    return $(els);
@@ -594,22 +591,22 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 			// Remove temp DIV wrapper
 			el = $('div#' + divId)[0];
 			// This is the same as: elem.replaceWith(...elem.childNodes), but backwards compatible:
-			el.replaceWith.apply(el, el.childNodes);
+			el.replaceWith[A](el, el.childNodes);
 		  $.execJS(id);
 		  return this; // Returns node that was wrapped
 		},
 
 		unwrap: function() {
 			// Replace el's parent with el
-			this[0][PN].replaceWith.apply(this[0][PN], this[0][PN].childNodes);
+			this[0][PN].replaceWith[A](this[0][PN], this[0][PN].childNodes);
 		  return this; // Returns node that was unwrapped
 		},
 
 		contains: function(el) {
 			for (var i=0, l=this[Ln]; i<l; ++i) {
-				if ($(this[i])[0].contains($(el)[0])) { return true; }
+				if ($(this[i])[0].contains($(el)[0])) { return T; }
 			}
-			return false;
+			return F;
 		},
 
 		attr: function(key, val) {
@@ -628,12 +625,12 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 
 
 		hasClass: function(class_name) {
-		  return (' ' + (this[0].className.match(/[^\s]+/g) || []).join(' ') + ' ').indexOf(' ' + class_name + ' ') > -1;
+		  return (' ' + (this[0][cN][M](/[^\s]+/g) || []).join(' ') + ' ').indexOf(' ' + class_name + ' ') > -1;
 		},
 
 		addClass: function(className) {
 		  this[fE](function(el) {
-		    el.classList.add.apply(el.classList, className.split(/\s/));
+		    el[cL].add[A](el[cL], className[S](/\s/));
 		  });
 		  return this;
 		},
@@ -641,25 +638,25 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 		removeClass: function(className) {
 		  this[fE](function(el) {
 		    if ($.t(className)) {
-		      el.className = '';
+		      el[cN] = '';
 		    } else {
-		      var cL = el.classList;
-		      cL.remove.apply(cL, className.split(/\s/));
+		      var kL = el[cL];
+		      kL.remove[A](kL, className[S](/\s/));
 		    }
 		  });
-		  if (this[0].className == '') { this.removeAttr('class'); }
+		  if (this[0][cN] == '') { this.removeAttr('class'); }
 		  return this;
 		},
 
 		toggleClass: function(className, addremove) {
-		  var cN = className.split(/\s/);
+		  var kN = className[S](/\s/);
 		  this[fE](function(el) {
-		    var cL = el.classList;
-		    for(var i=0, l=cN[Ln]; i<l; ++i) {
+		    var kL = el[cL];
+		    for(var i=0, l=kN[Ln]; i<l; ++i) {
 		    	if ($.t(addremove)) {
-			    	cL.contains(cN[i]) ? cL.remove.apply(cL, [cN[i]]) : cL.add.apply(cL, [cN[i]]);
+			    	kL.contains(kN[i]) ? kL.remove[A](kL, [kN[i]]) : kL.add[A](kL, [kN[i]]);
 		    	} else {
-		    		!!addremove ? cL.add.apply(cL, [cN[i]]) : cL.remove.apply(cL, [cN[i]]);
+		    		!!addremove ? kL.add[A](kL, [kN[i]]) : kL.remove[A](kL, [kN[i]]);
 		    	}
 		    }
 		  });
@@ -668,19 +665,19 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 
 		val: function(val) {
 		  if (!$.t(val)) {
-		    this[0].value = val;
+		    this[0][V] = val;
 		    return this;
 		  } else {
-		    if (this[0].nodeName == 'SELECT' && this[0][gAt]('multiple') != N) {
+		    if (this[0][nN] == 'SELECT' && this[0][gAt]('multiple') != N) {
 		    	var arr = [];
 		    	this.select('option')[fE](function(el) {
 		    		if (el[gAt]('selected') != N) {
-		    			arr.push(el.value);
+		    			arr[P](el[V]);
 		    		}
 		    	});
 		    	return arr;
 		    } else {
-		    	return this[0].value;	
+		    	return this[0][V];	
 		    }
 		  }
 		},
@@ -690,13 +687,13 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 		show: function(type) {
 		  this[fE](function(el) {
 		  	// Inline check
-		  	if (el[Styl].display == 'none') {
-		  		el[Styl].display = N;
-		  		if ($(el).attr('style') == '') { el[rAt]('style'); }
+		  	if (el[SY][DY] == 'none') {
+		  		el[SY][DY] = N;
+		  		if ($(el).attr(SY) == '') { el[rAt](SY); }
 		  	} 
 		  	// Stylesheet check
 		  	if ($(el).css('display') == 'none') {
-		  		el[Styl].display = type || (el.tagName == 'SPAN' ? 'inline-block' : 'block');	
+		  		el[SY][DY] = type || (el.tagName == 'SPAN' ? 'inline-block' : 'block');	
 		  	}
 		  });
 		  return this;
@@ -704,7 +701,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 
 		hide: function() {
 		  this[fE](function(el) {
-		    el[Styl].display = 'none';
+		    el[SY][DY] = 'none';
 		  });
 		  return this;
 		},
@@ -716,16 +713,16 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 		css: function(m, n) {
 			if ($.t(m, 's') && $.t(n)) {
 				// Get
-			  var val = this[0][Styl][m];
-			  if (!val || val == 'auto') {
+			  var val = this[0][SY][m], A = 'auto';
+			  if (!val || val == A) {
 			    var css = Doc[DefVw].getComputedStyle(this[0], N);
 			    val = css ? css[m] : N;
 			  }
 			  if (val == N) {return N;}
 			  if (m == 'opacity') return val ? parseFloat(val) : 1.0;
-			  if (val.match(/^rgb\(/) != N) return $.rgb2Hex(val);
-			  if (val.match(/^#\d{3}$/) != N) return $.longHex(val);
-			  return val == 'auto' ? N : val;
+			  if (val[M](/^rgb\(/) != N) return $.rgb2Hex(val);
+			  if (val[M](/^#\d{3}$/) != N) return $.longHex(val);
+			  return val == A ? N : val;
 			} else {
 				// Set
 				var obj = {};
@@ -737,8 +734,8 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 			  this[fE](function(el) {
 			    for (var key in obj) {
 			      var val = String(obj[key]);
-			      if (val.match(/^#\d{3}$/) != N) { val = $.longHex(val); }
-			      el[Styl][key] = val;
+			      if (val[M](/^#\d{3}$/) != N) { val = $.longHex(val); }
+			      el[SY][key] = val;
 			    }
 			  });
 			  return this;
@@ -752,7 +749,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 
 		offset: function() {
 			// Position of el relative to DOCUMENT
-			var bcr = this[0].getBoundingClientRect();
+			var bcr = this[0][gBCR]();
 			return {
 				top: bcr.top + this[0][OwnDoc][DefVw].pageYOffset - this[0][OwnDoc][DocEl].clientTop,
 				left: bcr.left + this[0][OwnDoc][DefVw].pageXOffset - this[0][OwnDoc][DocEl].clientLeft
@@ -760,9 +757,9 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 		},
 
 		offsetParent: function() {
-			var parOff = this[0].offsetParent;
+			var parOff = this[0][ofP];
 			while (parOff && $(parOff).css("position") == "static") {
-				parOff = parOff.offsetParent;
+				parOff = parOff[ofP];
 			}
 			return (parOff == N) ? $(Doc[DocEl]) : $(parOff);
 		},
@@ -771,11 +768,11 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 			// Position of el relative to OFFSET PARENT
 			var offPar, offset, parOff = {top: 0, left: 0};
 			if (this.css('position') == 'fixed') {
-				offset = this[0].getBoundingClientRect();
+				offset = this[0][gBCR]();
 			} else {
-				offPar = this.offsetParent();
+				offPar = this[ofP]();
 				offset = this.offset();
-				if (offPar[0].nodeName != 'html') {
+				if (offPar[0][nN] != 'html') {
 					parOff = offPar.offset();
 				}
 				// Add offsetParent borders
@@ -796,11 +793,11 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 		  if (display && display !== 'none') {
 		    return {width: this[0].offsetWidth, height: this[0].offsetHeight};
 		  }
-		  var s = this[0][Styl],
+		  var s = this[0][SY],
 			  origStyls = {
 			    visibility: s.visibility,
 			    position:   s[Pos],
-			    display:    s.display
+			    display:    s[DY]
 			  },
 		  	newStyls = {
 			    visibility: 'hidden',
@@ -832,14 +829,14 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 			// Prevent attaching if el doesn't exist (so we can load all handlers on all pages if we want)
 			if ($.t(this[0])) { return; }
 			// event = [ eventName, nameSpace ]
-			// nsRegXnEvts is the regex, but we also use it to store event observer data for named event observers
-			event = event.split(nsRegXnEvts);
+			// RgxEv is the regex, but we also use it to store event observer data for named event observers
+			event = event[S](RgxEv);
 			var i;
 			this.map(function(el) {
 				// el.pid$ is internal ID for an element
 				// i is eventName + id ("click75")
-				// nsRegXnEvts[i] is array of events (eg all click events for element#75) ([[handler, namespace], [handler, namespace]])
-				(nsRegXnEvts[i = event[0] + (el.pid$ = el.pid$ || ++Eid)] = nsRegXnEvts[i] || []).push([f, event[1]]);
+				// RgxEv[i] is array of events (eg all click events for element#75) ([[handler, namespace], [handler, namespace]])
+				(RgxEv[i = event[0] + (el.pid$ ??= ++Eid)] = RgxEv[i] || [])[P]([f, event[1]]);
 				el.addEventListener(event[0], f);
 			});
 			return this;
@@ -847,12 +844,12 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 
 		off: function(event, f) {
 			// event = [ eventName, nameSpace ]
-			event = event.split(nsRegXnEvts);
+			event = event[S](RgxEv);
 			var rEL = 'removeEventListener';
 			this.map(function(el) {
 				// el.pid$ - internal id for an element
 				var i, j;
-				evts = nsRegXnEvts[event[0] + el.pid$];
+				evts = RgxEv[event[0] + el.pid$];
 				// if array of events exist then i = length of array of events
 				if(i = evts && evts[Ln]) {
 					// while j = one of array of events
@@ -877,11 +874,11 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 		_on: function(event, expr, f, stopbubl) {
 			// Prevent attaching if el doesn't exist (so we can load all handlers on all pages if we want)
 			if ($.t(this[0])) { return; }
-			var special = false, evtarr = event.split(nsRegXnEvts);
+			var special = F, evtarr = event[S](RgxEv);
 			stopbubl = ($.t(stopbubl) ? (!$.Bubble) : stopbubl);
 			// Change mouseenter->mouseover, mouseleave->mouseout (with special checks below)
 			if (evtarr[0] == Me || evtarr[0] == Ml) {
-				special = true;
+				special = T;
 				event = ((evtarr[0] == Me) ? Mv : Mt) + ($.t(evtarr[1]) ? '' : '.' + evtarr[1]);
 			}
 			// Attach to PARENT, filter for child
@@ -905,11 +902,11 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 		one: function(event, f, stopbubl) {
 			// Prevent attaching if el doesn't exist (so we can load all handlers on all pages if we want)
 			if ($.t(this[0])) { return; }
-			var special = false, evtarr = event.split(nsRegXnEvts);
+			var special = F, evtarr = event[S](RgxEv);
 			stopbubl = ($.t(stopbubl) ? !$.Bubble : stopbubl);
 			// Change mouseenter->mousover, mouseleave->mouseout (with special checks below)
 			if (evtarr[0] == Me || evtarr[0] == Ml) {
-				special = true;
+				special = T;
 				event = ((evtarr[0] == Me) ? Mv : Mt) + ($.t(evtarr[1]) ? '' : '.' + evtarr[1]);
 			}
 			var that = this;
@@ -931,23 +928,23 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 		// Will serialize no matter what if FormData not supported (for a few mobile browsers)
 		formData: function(doFD) {
 		  var result = [], form = this[0], eu = encodeURIComponent, sl = Array.prototype.slice;
-		  if ($.t(form, 'o') && form.nodeName == 'FORM') {
-			  if ((!$.t(doFD) && doFD == false) || !$.t(FormData, 'f')) {
+		  if ($.t(form, 'o') && form[nN] == 'FORM') {
+			  if ((!$.t(doFD) && doFD == F) || !$.t(FormData, 'f')) {
 			    // Serialize it
 			    sl.call(form.elements)[fE](function(f) {
 			      if (f.name && !f.disabled && ['file', 'reset', 'submit', 'button'].indexOf(f.type) == -1) {
 			        if (f.type == 'select-multiple') {
 			          sl.call(f.options)[fE](function(option) {
 			            if (option.selected) {
-			            	result.push(eu(f.name) + '=' + eu(option.value));
+			            	result[P](eu(f.name) + '=' + eu(option[V]));
 			            }
 			          });
 			        } else if ((['checkbox', 'radio'].indexOf(f.type) == -1) || f.checked) {
-				      	result.push(eu(f.name) + '=' + eu(f.value));
+				      	result[P](eu(f.name) + '=' + eu(f[V]));
 			      	}
 			      }
 			    });
-			    return result.join('&').replace(/%20/g, '+');
+			    return result.join('&')[R](/%20/g, '+');
 			  } else {
 			  	// Use FormData (default)
 			  	return new FormData(form);
@@ -960,7 +957,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 
 		blank: function() {
 			var t, x = this[0];
-			t = (x.tagName == 'SELECT') ?  x.value : (x.value || x[iH]);
+			t = (x.tagName == 'SELECT') ?  x[V] : (x[V] || x[iH]);
 			return /^\s*$/.test(t);
 		},
 
@@ -984,7 +981,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 		each: function(iterator, context) {
 		  for (var i=0, l=this[Ln]; i<l; i++) {
 		    if (i in this) {
-					if (iterator.call($(this[i])) === false) { break; }
+					if (iterator.call($(this[i])) === F) { break; }
 		    }
 		  }
 		},
@@ -1010,7 +1007,7 @@ window.Pika=(function(Doc, fn, nsRegXnEvts, Eid, N, DocEl, OwnDoc, DefVw, PN, Po
 
 	return $;
 
-})(document, [], /\.(.+)/, 0, null, 'documentElement', 'ownerDocument', 'defaultView', 'parentNode', 'position', 'processData', 'returnType', 'contentType', 'headers', 'timeout', 'style', 'length', 'relatedTarget', parseInt, 'mouseenter', 'mouseleave', 'mouseover', 'mouseout', 'forEach', 'createElement', 'nodeType', 'innerHTML', 'appendChild', 'insertBefore', 'getAttribute', 'setAttribute', 'removeAttribute', setTimeout);
+})(document, [], /\.(.+)/, 0, null, true, false, 'GET', 'match', 'apply', 'push', 'value', 'split', 'replace', 'script', 'documentElement', 'ownerDocument', 'defaultView', 'parentNode', 'position', 'processData', 'returnType', 'contentType', 'headers', 'timeout', 'style', 'display', 'length', 'relatedTarget', parseInt, 'mouseenter', 'mouseleave', 'mouseover', 'mouseout', 'forEach', 'createElement', 'nodeType', 'innerHTML', 'appendChild', 'insertBefore', 'getAttribute', 'setAttribute', 'removeAttribute', 'offsetParent', 'getBoundingClientRect', 'nodeName', 'removeChild', 'firstChild', 'nextSibling', 'querySelectorAll', 'classList', 'className', setTimeout, clearTimeout);
 
 Pika.noConflict = function() {
 	if (window.$ === Pika) { window.$ = __$; }
