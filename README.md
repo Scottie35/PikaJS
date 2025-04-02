@@ -50,7 +50,7 @@ Anyhoo, the idea was to include the best of jQuery and the best of PrototypeJS (
 
 **jQuery 3.7.1**  =  85.4 kB
 
-**PikaJS v3.2.4**  =  **12.3** kB
+**PikaJS v3.2.4**  =  **12.2** kB
 
 That's just minified... PikaJS is only **5.1 kB** gzipped!!
 
