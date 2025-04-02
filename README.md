@@ -48,11 +48,11 @@ Anyhoo, the idea was to include the best of jQuery and the best of PrototypeJS (
 
 **PrototypeJS 1.7.3 + Script.aculo.us**  =  120 kB minified
 
-**jQuery 3.7.1**  =  85.4 KB
+**jQuery 3.7.1**  =  85.4 kB
 
-**PikaJS v3.2.3**  =  **12.6** KB
+**PikaJS v3.2.4**  =  **12.3** kB
 
-That's just minified... PikaJS is only **5.0 KB** gzipped!!
+That's just minified... PikaJS is only **5.1 kB** gzipped!!
 
 ## Okay, but how compatible is PikaJS?
 
