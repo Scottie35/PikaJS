@@ -950,7 +950,7 @@ Alias of .select
 
 $ includes the following default values for PikaJS:
 
-	$.Version = '3.2.3'
+	$.Version = '3.2.4'
 	$.Ajax = {
 		url: null,
 		type: 'GET',
